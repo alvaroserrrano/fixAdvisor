@@ -1,0 +1,117 @@
+1 - Configure Firebase
+
+1.1 - Create a Firebase project at the Firebase Console.
+
+1.2 - Enable Storage
+
+Go to Storage
+Click at 'Enable'
+1.3 - Enable Email/Password sign-in:
+
+At the Firebase console, open the Auth section.
+On the Sign in method tab, enable the Email/password sign-in method and click Save.
+1.4 - Add the Firebase project id to the '<project-folder>/.firebaserc'.
+
+.5 - Configure the client side account's credentials:
+
+Go to the Firebase Project.
+Open 'Project settings'.
+At 'Your apps', click at the web icon.
+Copy only the content of the var 'config'.
+Paste the content at the variable 'firebaseConfig' of the files:
+'<project-folder>/frontend/src/config/localhost.js'
+'<project-folder>/frontend/src/config/development.js'
+'<project-folder>/frontend/src/config/production.js'
+2.6 - Configure the server side account credentials:
+
+Go to the Firebase Project.
+Click at the configuration icon, placed near 'Overview' at the left corner.
+Click at 'Project settings'.
+Open the tab 'Service accounts'.
+Open 'Firebase Admin SDK'.
+Click at 'GENERATE NEW PRIVATE KEY'.
+Save and replicate the file as:
+<project-folder>/backend/service-accounts/localhost.json
+<project-folder>/backend/service-accounts/test.json
+<project-folder>/backend/service-accounts/development.json
+<project-folder>/backend/service-accounts/production.json
+1.7 - Upgrade the Firebase project to the Blaze (Pay as you go) plan
+
+2 - Create and configure a PostgreSQL or MySQL connection
+
+2.1 - Go to the Google Cloud Console related to the Firebase Project that you created.
+
+The database instance doesn't need to be at the Google Cloud, but I recommend it because of the low latency.
+
+2.2 - Go to SQL instances.
+
+2.3 - Create a new instance.
+
+2.4 - Go to 'Connections'.
+
+Mark Public IP
+Add '0.0.0.0/0' or your IP address to the new Authorized networks.
+2.5 - Go to 'Overview'.
+
+Open '<project-folder>/backend/config/<development|production>.json'.
+Inform the database password at the database.password variable.
+Copy the Public IP address to the database.migrationHost variable.
+Copy the Instance connection name to the database.host as '/cloudsql/<instance connection name>'.
+Ps.: If you experience problems connecting to the database, try using the Public IP address at the database.host.
+3.5 - Go to 'Databases'.
+
+Create a new database and name it 'development'.
+3 - Configure email sender (Optional):
+In order to be able to send user invitation emails you need the SMTP credentials configured. It's optional, if you don't have it configured the app just won't send those emails.
+
+Open '<project-folder>/backend/config/<environment>.json'.
+Locate the 'email' section.
+Configure the SMTP credentials. See https://nodemailer.com for config options.
+4 - Configure Internationalization (I18n)
+
+You must setup the labels for the entities, fields and roles.
+
+4.1 - For each locale at 'frontend/src/i18n/<locale>.js':
+Go to the 'entities' section.
+Add the labels for the entity and it's fields.
+Go to the 'roles' section.
+Replace the object name for the label.
+5- Setup project dependencies
+
+5.1 - Download and install NodeJS
+
+Go to https://nodejs.org/en/blog/release/v8.11.4/, download and install 8.11.4v of NodeJS.
+
+5.2 - Open the console at the project folder.
+
+5.3 - Update NPM:
+
+npm install -g npm
+
+5.3 - Install firebase-tools globally:
+
+npm install -g firebase-tools
+
+5.4 - Login at firebase-cli and add the project:
+
+firebase login
+
+5.5 - Open the 'frontend' folder and run:
+
+npm install
+
+npm run deploy:development
+
+6 - Open the 'backend' folder and run:
+
+npm install
+
+npm run deploy:development
+
+7 - Create the database tables:
+
+npm run db:reset:development
+
+This command will DROP ALL THE DATABASE TABLES. Make sure you are running it pointing to the correct database.
+
+8 - Open the application at the URL informed after first deploy

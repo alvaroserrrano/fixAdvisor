@@ -1,0 +1,6 @@
+node_modules/
+/service-accounts/*.json
+/data
+/config/development.js
+/config/localhost.js
+/config/production.js

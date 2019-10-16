@@ -94,6 +94,9 @@ export default class ToolService {
             size
             bookings {
               id
+              arrival
+              departure
+              status
             }
             createdAt
             updatedAt
@@ -153,14 +156,19 @@ export default class ToolService {
     return response.data.toolList;
   }
 
-  static async listAutocomplete(query, limit) {
+  static async listAutocomplete(query, owner, limit) {
     const response = await graphqlClient.query({
       query: gql`
         query TOOL_AUTOCOMPLETE(
           $query: String
+          $owner: String
           $limit: Int
         ) {
-          toolAutocomplete(query: $query, limit: $limit) {
+          toolAutocomplete(
+            query: $query
+            owner: $owner
+            limit: $limit
+          ) {
             id
             label
           }
@@ -169,6 +177,7 @@ export default class ToolService {
 
       variables: {
         query,
+        owner,
         limit,
       },
     });

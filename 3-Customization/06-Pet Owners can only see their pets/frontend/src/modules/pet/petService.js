@@ -91,7 +91,6 @@ export default class ToolService {
             }
             name
             type
-            breed
             size
             bookings {
               id
@@ -135,7 +134,6 @@ export default class ToolService {
               }
               name
               type
-              breed
               size
               updatedAt
               createdAt

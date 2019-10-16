@@ -3,7 +3,6 @@ const schema = `
     owner: String!
     name: String!
     type: ToolTypeEnum!
-    breed: String!
     size: ToolSizeEnum!
     bookings: [ String! ]
   }

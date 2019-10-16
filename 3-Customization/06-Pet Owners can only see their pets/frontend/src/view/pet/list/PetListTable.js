@@ -37,7 +37,7 @@ class ToolListTable extends Component {
       }),
     fields.name.forTable(),
     fields.type.forTable(),
-    fields.breed.forTable(),
+
     fields.size.forTable(),
     fields.createdAt.forTable(),
     {

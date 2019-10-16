@@ -3,24 +3,21 @@ const SequelizeFilter = require('../utils/sequelizeFilter');
 const SequelizeAutocompleteFilter = require('../utils/sequelizeAutocompleteFilter');
 const AbstractEntityRepository = require('./abstractEntityRepository');
 
-class PetRepository extends AbstractEntityRepository {
+class ToolRepository extends AbstractEntityRepository {
   constructor() {
-    const modelName = 'pet';
+    const modelName = 'tool';
 
     const inTableAttributes = [
       'id',
       'name',
       'type',
-      'breed',
       'size',
       'importHash',
       'updatedAt',
       'createdAt',
     ];
 
-    const fileAttributes = [
-
-    ];
+    const fileAttributes = [];
 
     const relationToOneAttributes = {
       owner: {
@@ -75,15 +72,15 @@ class PetRepository extends AbstractEntityRepository {
       }
 
       if (filter.name) {
-        sequelizeFilter.appendIlike('name', filter.name, this.modelName);
+        sequelizeFilter.appendIlike(
+          'name',
+          filter.name,
+          this.modelName,
+        );
       }
 
       if (filter.type) {
         sequelizeFilter.appendEqual('type', filter.type);
-      }
-
-      if (filter.breed) {
-        sequelizeFilter.appendIlike('breed', filter.breed, this.modelName);
       }
 
       if (filter.size) {
@@ -134,4 +131,4 @@ class PetRepository extends AbstractEntityRepository {
   }
 }
 
-module.exports = PetRepository;
+module.exports = ToolRepository;

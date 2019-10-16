@@ -1,8 +1,8 @@
 const moment = require('moment');
 
 module.exports = function(sequelize, DataTypes) {
-  const pet = sequelize.define(
-    'pet',
+  const tool = sequelize.define(
+    'tool',
     {
       id: {
         type: DataTypes.UUID,
@@ -14,31 +14,25 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false,
         validate: {
           notEmpty: true,
-        }
+        },
       },
       type: {
         type: DataTypes.ENUM,
         allowNull: false,
         values: [
-          "cat",
-          "dog"
+          'plumber',
+          'gardener',
+          'mechanical technician',
+          ' cable specialist',
+          'electrician',
+          'painter',
+          'specialized engineer',
         ],
-      },
-      breed: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
-        validate: {
-          notEmpty: true,
-        }
       },
       size: {
         type: DataTypes.ENUM,
         allowNull: false,
-        values: [
-          "small",
-          "medium",
-          "large"
-        ],
+        values: ['small', 'medium', 'large'],
       },
       importHash: {
         type: DataTypes.STRING(255),
@@ -52,28 +46,26 @@ module.exports = function(sequelize, DataTypes) {
     },
   );
 
-  pet.associate = (models) => {
-    models.pet.belongsTo(models.user, {
+  tool.associate = (models) => {
+    models.tool.belongsTo(models.user, {
       as: 'owner',
       constraints: false,
     });
 
-    models.pet.hasMany(models.booking, {
+    models.tool.hasMany(models.booking, {
       as: 'bookings',
       constraints: false,
-      foreignKey: 'petId',
+      foreignKey: 'toolId',
     });
 
-
-
-    models.pet.belongsTo(models.user, {
+    models.tool.belongsTo(models.user, {
       as: 'createdBy',
     });
 
-    models.pet.belongsTo(models.user, {
+    models.tool.belongsTo(models.user, {
       as: 'updatedBy',
     });
   };
 
-  return pet;
+  return tool;
 };

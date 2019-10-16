@@ -18,9 +18,9 @@ const auditLogTypes = require('./auditLog/types');
 const auditLogQueries = require('./auditLog/queries');
 const auditLogMutations = require('./auditLog/mutations');
 
-const petTypes = require('./pet/types');
-const petQueries = require('./pet/queries');
-const petMutations = require('./pet/mutations');
+const toolTypes = require('./tool/types');
+const toolQueries = require('./tool/queries');
+const toolMutations = require('./tool/mutations');
 
 const bookingTypes = require('./booking/types');
 const bookingQueries = require('./booking/queries');
@@ -32,7 +32,7 @@ const types = [
   ...authTypes,
   ...auditLogTypes,
   ...settingsTypes,
-  ...petTypes,
+  ...toolTypes,
   ...bookingTypes,
 ].map((type) => type.resolver);
 
@@ -41,7 +41,7 @@ const queries = [
   ...authQueries,
   ...auditLogQueries,
   ...settingsQueries,
-  ...petQueries,
+  ...toolQueries,
   ...bookingQueries,
 ].map((query) => query.resolver);
 
@@ -50,7 +50,7 @@ const mutations = [
   ...authMutations,
   ...auditLogMutations,
   ...settingsMutations,
-  ...petMutations,
+  ...toolMutations,
   ...bookingMutations,
 ].map((mutation) => mutation.resolver);
 

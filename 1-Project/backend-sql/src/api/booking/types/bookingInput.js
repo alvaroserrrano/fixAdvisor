@@ -1,7 +1,7 @@
 const schema = `
   input BookingInput {
     owner: String!
-    pet: String!
+    tool: String!
     arrival: DateTime!
     departure: DateTime!
     clientNotes: String

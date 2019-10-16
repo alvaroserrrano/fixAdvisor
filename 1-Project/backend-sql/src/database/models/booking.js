@@ -19,37 +19,29 @@ module.exports = function(sequelize, DataTypes) {
       },
       clientNotes: {
         type: DataTypes.TEXT,
-        validate: {
-
-        }
+        validate: {},
       },
       employeeNotes: {
         type: DataTypes.TEXT,
-        validate: {
-
-        }
+        validate: {},
       },
       status: {
         type: DataTypes.ENUM,
         allowNull: false,
         values: [
-          "booked",
-          "progress",
-          "cancelled",
-          "completed"
+          'booked',
+          'progress',
+          'cancelled',
+          'completed',
         ],
       },
       cancellationNotes: {
         type: DataTypes.TEXT,
-        validate: {
-
-        }
+        validate: {},
       },
       fee: {
         type: DataTypes.DECIMAL(24, 2),
-        validate: {
-
-        }
+        validate: {},
       },
       importHash: {
         type: DataTypes.STRING(255),
@@ -69,8 +61,8 @@ module.exports = function(sequelize, DataTypes) {
       constraints: false,
     });
 
-    models.booking.belongsTo(models.pet, {
-      as: 'pet',
+    models.booking.belongsTo(models.tool, {
+      as: 'tool',
       constraints: false,
     });
 

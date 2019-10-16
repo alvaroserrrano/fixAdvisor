@@ -2,7 +2,7 @@ const schema = `
   type Booking {
     id: String!
     owner: User
-    pet: Pet
+    tool: Tool
     arrival: DateTime
     departure: DateTime
     clientNotes: String

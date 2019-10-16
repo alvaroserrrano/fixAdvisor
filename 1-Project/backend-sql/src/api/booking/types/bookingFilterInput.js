@@ -2,7 +2,7 @@ const schema = `
   input BookingFilterInput {
     id: String
     owner: String
-    pet: String
+    tool: String
     arrivalRange: [ DateTime ]
     departureRange: [ DateTime ]
     status: BookingStatusEnum

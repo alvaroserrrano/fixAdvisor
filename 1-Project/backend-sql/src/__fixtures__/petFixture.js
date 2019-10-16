@@ -1,9 +1,9 @@
 const genericFixture = require('./genericFixture');
-const PetRepository = require('../database/repositories/petRepository');
+const ToolRepository = require('../database/repositories/toolRepository');
 
-const petFixture = genericFixture({
+const toolFixture = genericFixture({
   idField: 'id',
-  createFn: (data) => new PetRepository().create(data),
+  createFn: (data) => new ToolRepository().create(data),
   data: [
     {
       id: '1',
@@ -12,4 +12,4 @@ const petFixture = genericFixture({
   ],
 });
 
-module.exports = petFixture;
+module.exports = toolFixture;

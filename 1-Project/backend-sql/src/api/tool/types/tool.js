@@ -1,11 +1,10 @@
 const schema = `
-  type Pet {
+  type Tool {
     id: String!
     owner: User
     name: String
-    type: PetTypeEnum
-    breed: String
-    size: PetSizeEnum
+    type: ToolTypeEnum
+    size: ToolSizeEnum
     bookings: [ Booking! ]
     createdAt: DateTime
     updatedAt: DateTime

@@ -1,10 +1,10 @@
-const PetRepository = require('../database/repositories/petRepository');
+const ToolRepository = require('../database/repositories/toolRepository');
 const ValidationError = require('../errors/validationError');
 const AbstractRepository = require('../database/repositories/abstractRepository');
 
-module.exports = class PetService {
+module.exports = class ToolService {
   constructor({ currentUser, language }) {
-    this.repository = new PetRepository();
+    this.repository = new ToolRepository();
     this.currentUser = currentUser;
     this.language = language;
   }
@@ -84,7 +84,10 @@ module.exports = class PetService {
   }
 
   async findAllAutocomplete(search, limit) {
-    return this.repository.findAllAutocomplete(search, limit);
+    return this.repository.findAllAutocomplete(
+      search,
+      limit,
+    );
   }
 
   async findAndCountAll(args) {

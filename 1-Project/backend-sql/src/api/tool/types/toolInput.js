@@ -1,10 +1,10 @@
 const schema = `
-  input PetInput {
+  input ToolInput {
     owner: String!
     name: String!
-    type: PetTypeEnum!
+    type: ToolTypeEnum!
     breed: String!
-    size: PetSizeEnum!
+    size: ToolSizeEnum!
     bookings: [ String! ]
   }
 `;

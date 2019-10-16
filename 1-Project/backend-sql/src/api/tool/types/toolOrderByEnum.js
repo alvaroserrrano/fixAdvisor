@@ -1,13 +1,11 @@
 const schema = `
-  enum PetOrderByEnum {
+  enum ToolOrderByEnum {
     id_ASC
     id_DESC
     name_ASC
     name_DESC
     type_ASC
     type_DESC
-    breed_ASC
-    breed_DESC
     size_ASC
     size_DESC
     createdAt_ASC

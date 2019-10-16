@@ -1,11 +1,11 @@
 const schema = `
-  input PetFilterInput {
+  input ToolFilterInput {
     id: String
     owner: String
     name: String
-    type: PetTypeEnum
+    type: ToolsTypeEnum
     breed: String
-    size: PetSizeEnum
+    size: ToolsSizeEnum
     createdAtRange: [ DateTime ]
   }
 `;

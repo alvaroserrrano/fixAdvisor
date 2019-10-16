@@ -8,8 +8,8 @@ class Roles {
       iamSecurityReviewer: 'iamSecurityReviewer',
       entityEditor: 'entityEditor',
       entityViewer: 'entityViewer',
-      petEditor: 'petEditor',
-      petViewer: 'petViewer',
+      toolEditor: 'toolEditor',
+      toolViewer: 'toolViewer',
       bookingEditor: 'bookingEditor',
       bookingViewer: 'bookingViewer',
     };

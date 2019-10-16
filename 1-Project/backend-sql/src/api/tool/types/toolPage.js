@@ -1,13 +1,7 @@
 const schema = `
-  enum PetTypeEnum {
-    cat
-    dog
-  }
-
-  enum PetSizeEnum {
-    small
-    medium
-    large
+  type ToolPage {
+    rows: [Tool!]!
+    count: Int!
   }
 `;
 

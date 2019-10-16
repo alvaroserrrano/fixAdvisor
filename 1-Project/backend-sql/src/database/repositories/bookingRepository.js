@@ -21,25 +21,20 @@ class BookingRepository extends AbstractEntityRepository {
       'createdAt',
     ];
 
-    const fileAttributes = [
-      'photos',
-      'receipt',
-    ];
+    const fileAttributes = ['photos', 'receipt'];
 
     const relationToOneAttributes = {
       owner: {
         model: models.user,
         as: 'owner',
       },
-      pet: {
-        model: models.pet,
-        as: 'pet',
+      tool: {
+        model: models.tool,
+        as: 'tool',
       },
     };
 
-    const relationToManyAttributes = {
-
-    };
+    const relationToManyAttributes = {};
 
     super(
       modelName,
@@ -79,8 +74,8 @@ class BookingRepository extends AbstractEntityRepository {
         sequelizeFilter.appendId('ownerId', filter.owner);
       }
 
-      if (filter.pet) {
-        sequelizeFilter.appendId('petId', filter.pet);
+      if (filter.tool) {
+        sequelizeFilter.appendId('toolId', filter.tool);
       }
 
       if (filter.arrivalRange) {
@@ -98,14 +93,14 @@ class BookingRepository extends AbstractEntityRepository {
       }
 
       if (filter.status) {
-        sequelizeFilter.appendEqual('status', filter.status);
+        sequelizeFilter.appendEqual(
+          'status',
+          filter.status,
+        );
       }
 
       if (filter.feeRange) {
-        sequelizeFilter.appendRange(
-          'fee',
-          filter.feeRange,
-        );
+        sequelizeFilter.appendRange('fee', filter.feeRange);
       }
 
       if (filter.createdAtRange) {
@@ -135,7 +130,6 @@ class BookingRepository extends AbstractEntityRepository {
 
     if (query) {
       filter.appendId('id', query);
-
     }
 
     const records = await models[this.modelName].findAll({

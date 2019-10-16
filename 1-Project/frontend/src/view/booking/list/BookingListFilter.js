@@ -16,14 +16,14 @@ import DatePickerRangeFormItem from 'view/shared/form/items/DatePickerRangeFormI
 import InputRangeFormItem from 'view/shared/form/items/InputRangeFormItem';
 import UserAutocompleteFormItem from 'view/iam/autocomplete/UserAutocompleteFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
-import PetAutocompleteFormItem from 'view/pet/autocomplete/PetAutocompleteFormItem';
+import ToolAutocompleteFormItem from 'view/tool/autocomplete/ToolAutocompleteFormItem';
 
 const { fields } = model;
 
 const schema = new FormFilterSchema([
   fields.id,
   fields.owner,
-  fields.pet,
+  fields.tool,
   fields.arrivalRange,
   fields.departureRange,
   fields.status,
@@ -92,9 +92,9 @@ class BookingListFilter extends Component {
                     />
                   </Col>
                   <Col md={24} lg={12}>
-                    <PetAutocompleteFormItem
-                      name={fields.pet.name}
-                      label={fields.pet.label}
+                    <ToolAutocompleteFormItem
+                      name={fields.tool.name}
+                      label={fields.tool.label}
                       layout={formItemLayout}
                     />
                   </Col>
@@ -169,4 +169,6 @@ function select(state) {
   };
 }
 
-export default withRouter(connect(select)(BookingListFilter));
+export default withRouter(
+  connect(select)(BookingListFilter),
+);

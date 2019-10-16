@@ -1,20 +1,20 @@
 const AbstractEntityRepository = require('./abstractEntityRepository');
 const MongooseQuery = require('../utils/mongooseQuery');
-const Pet = require('../models/pet');
+const Tool = require('../models/tool');
 const Booking = require('../models/booking');
 
-class PetRepository extends AbstractEntityRepository {
+class ToolRepository extends AbstractEntityRepository {
   constructor() {
-    super(Pet);
+    super(Tool);
   }
 
   async refreshTwoWayRelations(record, options) {
     await this.refreshTwoWayRelationManyToOne(
       record,
-      Pet,
+      Tool,
       'bookings',
       Booking,
-      'pet',
+      'tool',
       options,
     );
   }
@@ -23,14 +23,14 @@ class PetRepository extends AbstractEntityRepository {
     await this.destroyRelationToOne(
       id,
       Booking,
-      'pet',
+      'tool',
       options,
     );
   }
 
   async findById(id, options) {
     return this.wrapWithSessionIfExists(
-      Pet.findById(id)
+      Tool.findById(id)
         .populate('owner')
         .populate('bookings'),
       options,
@@ -92,14 +92,14 @@ class PetRepository extends AbstractEntityRepository {
       }
     }
 
-    const rows = await Pet.find(query.criteria)
+    const rows = await Tool.find(query.criteria)
       .skip(query.skip)
       .limit(query.limit)
       .sort(query.sort)
       .populate('owner')
       .populate('bookings');
 
-    const count = await Pet.countDocuments(query.criteria);
+    const count = await Tool.countDocuments(query.criteria);
 
     return { rows, count };
   }
@@ -125,7 +125,7 @@ class PetRepository extends AbstractEntityRepository {
       };
     }
 
-    const records = await Pet.find(criteria)
+    const records = await Tool.find(criteria)
       .limit(mongooseQuery.limit)
       .sort(mongooseQuery.sort);
 
@@ -136,4 +136,4 @@ class PetRepository extends AbstractEntityRepository {
   }
 }
 
-module.exports = PetRepository;
+module.exports = ToolRepository;

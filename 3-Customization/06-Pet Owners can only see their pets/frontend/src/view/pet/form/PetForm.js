@@ -1,9 +1,9 @@
 import { Button, Form } from 'antd';
 import { Formik } from 'formik';
 import { i18n } from 'i18n';
-import actions from 'modules/pet/form/petFormActions';
-import selectors from 'modules/pet/form/petFormSelectors';
-import model from 'modules/pet/petModel';
+import actions from 'modules/tool/form/toolFormActions';
+import selectors from 'modules/tool/form/toolFormSelectors';
+import model from 'modules/tool/toolModel';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ViewFormItem from 'view/shared/form/items/ViewFormItem';
@@ -19,7 +19,7 @@ import authSelectors from 'modules/auth/authSelectors';
 
 const { fields } = model;
 
-class PetForm extends Component {
+class ToolForm extends Component {
   schema = new FormSchema(fields.id, [
     fields.owner,
     fields.name,
@@ -63,7 +63,7 @@ class PetForm extends Component {
 
     const initialValues = {};
 
-    if (this.props.isPetOwner) {
+    if (this.props.isToolOwner) {
       initialValues.owner = this.props.currentUser;
     }
 
@@ -71,7 +71,7 @@ class PetForm extends Component {
   };
 
   renderForm() {
-    const { saveLoading, isPetOwner } = this.props;
+    const { saveLoading, isToolOwner } = this.props;
 
     return (
       <FormWrapper>
@@ -89,7 +89,7 @@ class PetForm extends Component {
                   />
                 )}
 
-                {!isPetOwner && (
+                {!isToolOwner && (
                   <UserAutocompleteFormItem
                     name={fields.owner.name}
                     label={fields.owner.label}
@@ -179,10 +179,10 @@ function select(state) {
     saveLoading: selectors.selectSaveLoading(state),
     record: selectors.selectRecord(state),
     currentUser: authSelectors.selectCurrentUser(state),
-    isPetOwner: authSelectors.selectCurrentUserIsPetOwner(
+    isToolOwner: authSelectors.selectCurrentUserIsToolOwner(
       state,
     ),
   };
 }
 
-export default connect(select)(PetForm);
+export default connect(select)(ToolForm);

@@ -1,5 +1,5 @@
 const BookingRepository = require('../database/repositories/bookingRepository');
-const PetRepository = require('../database/repositories/petRepository');
+const ToolRepository = require('../database/repositories/toolRepository');
 const ValidationError = require('../errors/validationError');
 const AbstractRepository = require('../database/repositories/abstractRepository');
 const UserRoleChecker = require('./iam/userRoleChecker');
@@ -9,7 +9,7 @@ const bookingStatus = require('../enumerators/bookingStatus');
 module.exports = class BookingService {
   constructor({ currentUser, language }) {
     this.repository = new BookingRepository();
-    this.petRepository = new PetRepository();
+    this.toolRepository = new ToolRepository();
     this.currentUser = currentUser;
     this.language = language;
   }
@@ -35,7 +35,7 @@ module.exports = class BookingService {
   }
 
   async _validateCreate(data) {
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       if (data.owner !== this.currentUser.id) {
         throw new ForbiddenError(this.language);
       }
@@ -45,13 +45,13 @@ module.exports = class BookingService {
       }
     }
 
-    await this._validatePetAndOwnerMatch(data);
+    await this._validateToolAndOwnerMatch(data);
   }
 
-  async _validatePetAndOwnerMatch(data) {
-    const pet = await this.petRepository.findById(data.pet);
+  async _validateToolAndOwnerMatch(data) {
+    const tool = await this.toolRepository.findById(data.tool);
 
-    if (pet.owner.id !== data.owner) {
+    if (tool.owner.id !== data.owner) {
       throw new ForbiddenError(this.language);
     }
   }
@@ -83,8 +83,8 @@ module.exports = class BookingService {
   async _validateUpdate(id, data) {
     const existingData = await this.findById(id);
 
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
-      await this._validateUpdateForPetOwner(
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
+      await this._validateUpdateForToolOwner(
         id,
         data,
         existingData,
@@ -99,10 +99,10 @@ module.exports = class BookingService {
       );
     }
 
-    await this._validatePetAndOwnerMatch(data);
+    await this._validateToolAndOwnerMatch(data);
   }
 
-  async _validateUpdateForPetOwner(id, data, existingData) {
+  async _validateUpdateForToolOwner(id, data, existingData) {
     data.owner = this.currentUser.id;
     await this._validateIsSameOwner(id);
 
@@ -126,7 +126,7 @@ module.exports = class BookingService {
         throw new ForbiddenError(this.language);
       }
 
-      if (data.pet !== existingData.pet.id) {
+      if (data.tool !== existingData.tool.id) {
         throw new ForbiddenError(this.language);
       }
     }
@@ -161,7 +161,7 @@ module.exports = class BookingService {
   }
 
   async _validateFindById(record) {
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       if (
         record.owner &&
         record.owner.id !== this.currentUser.id
@@ -172,7 +172,7 @@ module.exports = class BookingService {
   }
 
   async findAllAutocomplete(filter, limit) {
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       if (
         !filter ||
         !filter.owner ||
@@ -189,7 +189,7 @@ module.exports = class BookingService {
   }
 
   async findAndCountAll(args) {
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       args.filter = {
         ...args.filter,
         owner: this.currentUser.id,

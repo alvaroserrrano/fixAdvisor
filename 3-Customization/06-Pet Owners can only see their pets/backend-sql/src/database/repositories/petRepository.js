@@ -3,9 +3,9 @@ const SequelizeFilter = require('../utils/sequelizeFilter');
 const SequelizeAutocompleteFilter = require('../utils/sequelizeAutocompleteFilter');
 const AbstractEntityRepository = require('./abstractEntityRepository');
 
-class PetRepository extends AbstractEntityRepository {
+class ToolRepository extends AbstractEntityRepository {
   constructor() {
-    const modelName = 'pet';
+    const modelName = 'tool';
 
     const inTableAttributes = [
       'id',
@@ -155,4 +155,4 @@ class PetRepository extends AbstractEntityRepository {
   }
 }
 
-module.exports = PetRepository;
+module.exports = ToolRepository;

@@ -52,7 +52,7 @@ class IamNewForm extends Component {
     const initialValues = this.schema.initialValues();
 
     if (!isManager) {
-      initialValues.roles = [Roles.values.petOwner];
+      initialValues.roles = [Roles.values.toolOwner];
     }
 
     return initialValues;

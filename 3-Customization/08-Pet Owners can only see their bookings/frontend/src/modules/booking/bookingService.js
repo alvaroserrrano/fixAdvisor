@@ -92,7 +92,7 @@ export default class BookingService {
               fullName
               email
             }
-            pet {
+            tool {
               id
               name
             }
@@ -154,7 +154,7 @@ export default class BookingService {
                 fullName
                 email
               }
-              pet {
+              tool {
                 id
                 name
               }

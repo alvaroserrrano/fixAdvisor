@@ -6,7 +6,7 @@ import TextViewItem from 'view/shared/view/TextViewItem';
 import UserViewItem from 'view/iam/view/UserViewItem';
 import ImagesViewItem from 'view/shared/view/ImagesViewItem';
 import FilesViewItem from 'view/shared/view/FilesViewItem';
-import PetViewItem from 'view/pet/view/PetViewItem';
+import ToolViewItem from 'view/tool/view/ToolViewItem';
 
 const { fields } = model;
 
@@ -26,9 +26,9 @@ class BookingView extends Component {
           value={fields.owner.forView(record.owner)}
         />
 
-        <PetViewItem
-          label={fields.pet.label}
-          value={fields.pet.forView(record.pet)}
+        <ToolViewItem
+          label={fields.tool.label}
+          value={fields.tool.forView(record.tool)}
         />
 
         <TextViewItem
@@ -43,12 +43,16 @@ class BookingView extends Component {
 
         <TextViewItem
           label={fields.clientNotes.label}
-          value={fields.clientNotes.forView(record.clientNotes)}
+          value={fields.clientNotes.forView(
+            record.clientNotes,
+          )}
         />
 
         <TextViewItem
           label={fields.employeeNotes.label}
-          value={fields.employeeNotes.forView(record.employeeNotes)}
+          value={fields.employeeNotes.forView(
+            record.employeeNotes,
+          )}
         />
 
         <ImagesViewItem
@@ -63,7 +67,9 @@ class BookingView extends Component {
 
         <TextViewItem
           label={fields.cancellationNotes.label}
-          value={fields.cancellationNotes.forView(record.cancellationNotes)}
+          value={fields.cancellationNotes.forView(
+            record.cancellationNotes,
+          )}
         />
 
         <TextViewItem

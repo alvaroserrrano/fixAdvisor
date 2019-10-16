@@ -1,11 +1,11 @@
 import { Table, Popconfirm } from 'antd';
 import { i18n } from 'i18n';
-import actions from 'modules/pet/list/petListActions';
-import destroyActions from 'modules/pet/destroy/petDestroyActions';
-import selectors from 'modules/pet/list/petListSelectors';
-import destroySelectors from 'modules/pet/destroy/petDestroySelectors';
-import model from 'modules/pet/petModel';
-import petSelectors from 'modules/pet/petSelectors';
+import actions from 'modules/tool/list/toolListActions';
+import destroyActions from 'modules/tool/destroy/toolDestroyActions';
+import selectors from 'modules/tool/list/toolListSelectors';
+import destroySelectors from 'modules/tool/destroy/toolDestroySelectors';
+import model from 'modules/tool/toolModel';
+import toolSelectors from 'modules/tool/toolSelectors';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -16,7 +16,7 @@ import authSelectors from 'modules/auth/authSelectors';
 
 const { fields } = model;
 
-class PetListTable extends Component {
+class ToolListTable extends Component {
   handleTableChange = (pagination, filters, sorter) => {
     const { dispatch } = this.props;
 
@@ -31,7 +31,7 @@ class PetListTable extends Component {
   };
 
   columns = [
-    !this.props.isPetOwner &&
+    !this.props.isToolOwner &&
       fields.owner.forTable({
         render: (value) => <UserListItem value={value} />,
       }),
@@ -46,11 +46,11 @@ class PetListTable extends Component {
       width: '160px',
       render: (_, record) => (
         <div className="table-actions">
-          <Link to={`/pet/${record.id}`}>
+          <Link to={`/tool/${record.id}`}>
             {i18n('common.view')}
           </Link>
           {this.props.hasPermissionToEdit && (
-            <Link to={`/pet/${record.id}/edit`}>
+            <Link to={`/tool/${record.id}/edit`}>
               {i18n('common.edit')}
             </Link>
           )}
@@ -110,16 +110,16 @@ function select(state) {
     pagination: selectors.selectPagination(state),
     filter: selectors.selectFilter(state),
     selectedKeys: selectors.selectSelectedKeys(state),
-    hasPermissionToEdit: petSelectors.selectPermissionToEdit(
+    hasPermissionToEdit: toolSelectors.selectPermissionToEdit(
       state,
     ),
-    hasPermissionToDestroy: petSelectors.selectPermissionToDestroy(
+    hasPermissionToDestroy: toolSelectors.selectPermissionToDestroy(
       state,
     ),
-    isPetOwner: authSelectors.selectCurrentUserIsPetOwner(
+    isToolOwner: authSelectors.selectCurrentUserIsToolOwner(
       state,
     ),
   };
 }
 
-export default connect(select)(PetListTable);
+export default connect(select)(ToolListTable);

@@ -37,7 +37,7 @@ module.exports = class BookingService {
   }
 
   async _validateCreate(data) {
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       if (data.owner !== this.currentUser.id) {
         throw new ForbiddenError(this.language);
       }
@@ -79,7 +79,7 @@ module.exports = class BookingService {
   async _validateUpdate(id, data) {
     const existingData = await this.findById(id);
 
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       data.owner = this.currentUser.id;
       await this._validateIsSameOwner(id);
 
@@ -131,7 +131,7 @@ module.exports = class BookingService {
   }
 
   async _validateFindById(record) {
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       if (
         record.owner &&
         record.owner.id !== this.currentUser.id
@@ -142,7 +142,7 @@ module.exports = class BookingService {
   }
 
   async findAllAutocomplete(filter, limit) {
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       if (
         !filter ||
         !filter.owner ||
@@ -159,7 +159,7 @@ module.exports = class BookingService {
   }
 
   async findAndCountAll(args) {
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       args.filter = {
         ...args.filter,
         owner: this.currentUser.id,

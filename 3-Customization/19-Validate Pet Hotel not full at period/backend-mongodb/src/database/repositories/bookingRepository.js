@@ -1,7 +1,7 @@
 const AbstractEntityRepository = require('./abstractEntityRepository');
 const MongooseQuery = require('../utils/mongooseQuery');
 const Booking = require('../models/booking');
-const Pet = require('../models/pet');
+const Tool = require('../models/tool');
 const bookingStatus = require('../../enumerators/bookingStatus');
 
 class BookingRepository extends AbstractEntityRepository {
@@ -12,8 +12,8 @@ class BookingRepository extends AbstractEntityRepository {
   async refreshTwoWayRelations(record, options) {
     await this.refreshTwoWayRelationOneToMany(
       record,
-      'pet',
-      Pet,
+      'tool',
+      Tool,
       'bookings',
       options,
     );
@@ -22,7 +22,7 @@ class BookingRepository extends AbstractEntityRepository {
   async destroyFromRelations(id, options) {
     await this.destroyRelationToMany(
       id,
-      Pet,
+      Tool,
       'bookings',
       options,
     );
@@ -32,7 +32,7 @@ class BookingRepository extends AbstractEntityRepository {
     return this.wrapWithSessionIfExists(
       Booking.findById(id)
         .populate('owner')
-        .populate('pet'),
+        .populate('tool'),
       options,
     );
   }
@@ -68,8 +68,8 @@ class BookingRepository extends AbstractEntityRepository {
         query.appendId('owner', filter.owner);
       }
 
-      if (filter.pet) {
-        query.appendId('pet', filter.pet);
+      if (filter.tool) {
+        query.appendId('tool', filter.tool);
       }
 
       if (filter.arrivalRange) {
@@ -104,7 +104,7 @@ class BookingRepository extends AbstractEntityRepository {
       .limit(query.limit)
       .sort(query.sort)
       .populate('owner')
-      .populate('pet');
+      .populate('tool');
 
     const count = await Booking.countDocuments(
       query.criteria,
@@ -143,9 +143,9 @@ class BookingRepository extends AbstractEntityRepository {
     }));
   }
 
-  async existsForPet(petId) {
+  async existsForTool(toolId) {
     const count = await Booking.countDocuments({
-      pet: petId,
+      tool: toolId,
     });
 
     return count > 0;

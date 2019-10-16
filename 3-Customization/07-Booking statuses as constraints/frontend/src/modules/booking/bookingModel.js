@@ -26,7 +26,7 @@ const fields = {
   owner: new RelationToOneField('owner', label('owner'), {
     required: true,
   }),
-  pet: new RelationToOneField('pet', label('pet'), {
+  tool: new RelationToOneField('tool', label('tool'), {
     required: true,
   }),
   arrival: new DateTimeField('arrival', label('arrival'), {

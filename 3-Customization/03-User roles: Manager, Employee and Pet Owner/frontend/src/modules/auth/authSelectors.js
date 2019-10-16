@@ -106,7 +106,7 @@ const selectCurrentUserAvatar = createSelector(
   },
 );
 
-const selectCurrentUserIsPetOwner = createSelector(
+const selectCurrentUserIsToolOwner = createSelector(
   [selectCurrentUser],
   (currentUser) => {
     return !new PermissionChecker(
@@ -155,7 +155,7 @@ const selectors = {
   selectRaw,
   selectCurrentUserNameOrEmailPrefix,
   selectCurrentUserAvatar,
-  selectCurrentUserIsPetOwner,
+  selectCurrentUserIsToolOwner,
   selectCurrentUserIsManager,
   selectCurrentUserIsEmployee,
 };

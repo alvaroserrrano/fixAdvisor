@@ -1,9 +1,9 @@
 import { Button, Col, Form, Row } from 'antd';
 import { Formik } from 'formik';
 import { i18n } from 'i18n';
-import actions from 'modules/pet/list/petListActions';
-import selectors from 'modules/pet/list/petListSelectors';
-import model from 'modules/pet/petModel';
+import actions from 'modules/tool/list/toolListActions';
+import selectors from 'modules/tool/list/toolListSelectors';
+import model from 'modules/tool/toolModel';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -29,7 +29,7 @@ const schema = new FormFilterSchema([
   fields.createdAtRange,
 ]);
 
-class PetListFilter extends Component {
+class ToolListFilter extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(actions.doFetch(this.initialFilter()));
@@ -67,7 +67,7 @@ class PetListFilter extends Component {
             return (
               <Form onSubmit={form.handleSubmit}>
                 <Row gutter={24}>
-                  {!this.props.isPetOwner && (
+                  {!this.props.isToolOwner && (
                     <Col md={24} lg={12}>
                       <UserAutocompleteFormItem
                         name={fields.owner.name}
@@ -148,10 +148,10 @@ class PetListFilter extends Component {
 function select(state) {
   return {
     filter: selectors.selectFilter(state),
-    isPetOwner: authSelectors.selectCurrentUserIsPetOwner(
+    isToolOwner: authSelectors.selectCurrentUserIsToolOwner(
       state,
     ),
   };
 }
 
-export default withRouter(connect(select)(PetListFilter));
+export default withRouter(connect(select)(ToolListFilter));

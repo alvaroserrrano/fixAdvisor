@@ -19,7 +19,7 @@ import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import DatePickerFormItem from 'view/shared/form/items/DatePickerFormItem';
 import ImagesFormItem from 'view/shared/form/items/ImagesFormItem';
 import FilesFormItem from 'view/shared/form/items/FilesFormItem';
-import PetAutocompleteFormItem from 'view/pet/autocomplete/PetAutocompleteFormItem';
+import ToolAutocompleteFormItem from 'view/tool/autocomplete/ToolAutocompleteFormItem';
 import authSelectors from 'modules/auth/authSelectors';
 import bookingStatus from 'modules/booking/bookingStatus';
 
@@ -28,7 +28,7 @@ const { fields } = model;
 class BookingForm extends Component {
   schema = new FormSchema(fields.id, [
     fields.owner,
-    fields.pet,
+    fields.tool,
     fields.arrival,
     fields.departure,
     fields.clientNotes,
@@ -51,8 +51,8 @@ class BookingForm extends Component {
   }
 
   isOwnerEnabled = () => {
-    const { isPetOwner } = this.props;
-    return !isPetOwner;
+    const { isToolOwner } = this.props;
+    return !isToolOwner;
   };
 
   isEditing = () => {
@@ -61,26 +61,26 @@ class BookingForm extends Component {
   };
 
   isStatusEnabled = () => {
-    const { isPetOwner } = this.props;
+    const { isToolOwner } = this.props;
 
     if (this.isEditing()) {
       return true;
     }
 
-    return !isPetOwner;
+    return !isToolOwner;
   };
 
   statusOptions = () => {
-    const { isPetOwner } = this.props;
+    const { isToolOwner } = this.props;
 
-    if (isPetOwner) {
-      return this.statusOptionsPetOwner();
+    if (isToolOwner) {
+      return this.statusOptionsToolOwner();
     }
 
     return fields.status.options;
   };
 
-  statusOptionsPetOwner = () => {
+  statusOptionsToolOwner = () => {
     return fields.status.options.filter((option) => {
       return [
         bookingStatus.BOOKED,
@@ -111,7 +111,7 @@ class BookingForm extends Component {
       status: bookingStatus.BOOKED,
     };
 
-    if (this.props.isPetOwner) {
+    if (this.props.isToolOwner) {
       initialValues.owner = this.props.currentUser;
     }
 
@@ -144,10 +144,10 @@ class BookingForm extends Component {
                     required={fields.owner.required}
                   />
                 )}
-                <PetAutocompleteFormItem
-                  name={fields.pet.name}
-                  label={fields.pet.label}
-                  required={fields.pet.required}
+                <ToolAutocompleteFormItem
+                  name={fields.tool.name}
+                  label={fields.tool.label}
+                  required={fields.tool.required}
                   owner={
                     form.values.owner
                       ? form.values.owner.id
@@ -273,7 +273,7 @@ function select(state) {
     saveLoading: selectors.selectSaveLoading(state),
     record: selectors.selectRecord(state),
     currentUser: authSelectors.selectCurrentUser(state),
-    isPetOwner: authSelectors.selectCurrentUserIsPetOwner(
+    isToolOwner: authSelectors.selectCurrentUserIsToolOwner(
       state,
     ),
   };

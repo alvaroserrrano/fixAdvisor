@@ -19,11 +19,11 @@ import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import DatePickerFormItem from 'view/shared/form/items/DatePickerFormItem';
 import ImagesFormItem from 'view/shared/form/items/ImagesFormItem';
 import FilesFormItem from 'view/shared/form/items/FilesFormItem';
-import PetAutocompleteFormItem from 'view/pet/autocomplete/PetAutocompleteFormItem';
+import ToolAutocompleteFormItem from 'view/tool/autocomplete/ToolAutocompleteFormItem';
 import authSelectors from 'modules/auth/authSelectors';
 import bookingStatus from 'modules/booking/bookingStatus';
 import UserViewItem from 'view/iam/view/UserViewItem';
-import PetViewItem from 'view/pet/view/PetViewItem';
+import ToolViewItem from 'view/tool/view/ToolViewItem';
 import DatePickerRangeFormItem from 'view/shared/form/items/DatePickerRangeFormItem';
 
 const { fields } = model;
@@ -31,7 +31,7 @@ const { fields } = model;
 class BookingForm extends Component {
   schema = new FormSchema(fields.id, [
     fields.owner,
-    fields.pet,
+    fields.tool,
     fields.arrival,
     fields.departure,
     fields.clientNotes,
@@ -55,13 +55,13 @@ class BookingForm extends Component {
   }
 
   isOwnerEnabled = () => {
-    const { isPetOwner, isManager, record } = this.props;
+    const { isToolOwner, isManager, record } = this.props;
 
     if (isManager) {
       return true;
     }
 
-    if (isPetOwner) {
+    if (isToolOwner) {
       return false;
     }
 
@@ -80,7 +80,7 @@ class BookingForm extends Component {
     return !this.isOwnerEnabled() && this.props.record;
   };
 
-  isPetEnabled = (form) => {
+  isToolEnabled = (form) => {
     if (!form.values.owner) {
       return false;
     }
@@ -102,8 +102,8 @@ class BookingForm extends Component {
     return record.status === bookingStatus.BOOKED;
   };
 
-  isPetVisible = (form) => {
-    return !this.isPetEnabled(form) && form.values.pet;
+  isToolVisible = (form) => {
+    return !this.isToolEnabled(form) && form.values.tool;
   };
 
   isEditing = () => {
@@ -112,13 +112,13 @@ class BookingForm extends Component {
   };
 
   isStatusEnabled = () => {
-    const { isPetOwner } = this.props;
+    const { isToolOwner } = this.props;
 
     if (this.isEditing()) {
       return true;
     }
 
-    return !isPetOwner;
+    return !isToolOwner;
   };
 
   isEmployeeNotesAndPhotosEnabled = (form) => {
@@ -147,13 +147,13 @@ class BookingForm extends Component {
 
   statusOptions = () => {
     const {
-      isPetOwner,
+      isToolOwner,
       isManager,
       isEmployee,
     } = this.props;
 
-    if (isPetOwner) {
-      return this.statusOptionsPetOwner();
+    if (isToolOwner) {
+      return this.statusOptionsToolOwner();
     }
 
     if (isEmployee) {
@@ -186,7 +186,7 @@ class BookingForm extends Component {
     );
   };
 
-  statusOptionsPetOwner = () => {
+  statusOptionsToolOwner = () => {
     return fields.status.options.filter((option) => {
       return [
         bookingStatus.BOOKED,
@@ -219,7 +219,7 @@ class BookingForm extends Component {
       status: bookingStatus.BOOKED,
     };
 
-    if (this.props.isPetOwner) {
+    if (this.props.isToolOwner) {
       initialValues.owner = this.props.currentUser;
     }
 
@@ -269,11 +269,11 @@ class BookingForm extends Component {
                   />
                 )}
 
-                {this.isPetEnabled(form) && (
-                  <PetAutocompleteFormItem
-                    name={fields.pet.name}
-                    label={fields.pet.label}
-                    required={fields.pet.required}
+                {this.isToolEnabled(form) && (
+                  <ToolAutocompleteFormItem
+                    name={fields.tool.name}
+                    label={fields.tool.label}
+                    required={fields.tool.required}
                     owner={
                       form.values.owner
                         ? form.values.owner.id
@@ -282,10 +282,10 @@ class BookingForm extends Component {
                   />
                 )}
 
-                {this.isPetVisible(form) && (
-                  <PetViewItem
-                    label={fields.pet.label}
-                    value={fields.pet.forView(record.pet)}
+                {this.isToolVisible(form) && (
+                  <ToolViewItem
+                    label={fields.tool.label}
+                    value={fields.tool.forView(record.tool)}
                   />
                 )}
 
@@ -424,7 +424,7 @@ function select(state) {
     saveLoading: selectors.selectSaveLoading(state),
     record: selectors.selectRecord(state),
     currentUser: authSelectors.selectCurrentUser(state),
-    isPetOwner: authSelectors.selectCurrentUserIsPetOwner(
+    isToolOwner: authSelectors.selectCurrentUserIsToolOwner(
       state,
     ),
     isEmployee: authSelectors.selectCurrentUserIsEmployee(

@@ -28,9 +28,9 @@ class BookingRepository extends AbstractEntityRepository {
         model: models.user,
         as: 'owner',
       },
-      pet: {
-        model: models.pet,
-        as: 'pet',
+      tool: {
+        model: models.tool,
+        as: 'tool',
       },
     };
 
@@ -74,8 +74,8 @@ class BookingRepository extends AbstractEntityRepository {
         sequelizeFilter.appendId('ownerId', filter.owner);
       }
 
-      if (filter.pet) {
-        sequelizeFilter.appendId('petId', filter.pet);
+      if (filter.tool) {
+        sequelizeFilter.appendId('toolId', filter.tool);
       }
 
       if (filter.arrivalRange) {
@@ -156,10 +156,10 @@ class BookingRepository extends AbstractEntityRepository {
     }));
   }
 
-  async existsForPet(petId) {
+  async existsForTool(toolId) {
     const count = await models.booking.count({
       where: {
-        petId,
+        toolId,
       },
     });
 

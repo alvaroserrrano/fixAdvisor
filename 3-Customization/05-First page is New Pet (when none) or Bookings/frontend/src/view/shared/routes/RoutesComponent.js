@@ -48,8 +48,8 @@ class RoutesComponent extends Component {
           exact
           path="/"
           render={() =>
-            this.props.redirectToNewPet ? (
-              <Redirect to="/pet/new" />
+            this.props.redirectToNewTool ? (
+              <Redirect to="/tool/new" />
             ) : (
               <Redirect to="/booking" />
             )
@@ -125,7 +125,7 @@ const select = (state) => ({
     authSelectors.selectLoadingInit(state) ||
     layoutSelectors.selectLoading(state),
   currentUser: authSelectors.selectCurrentUser(state),
-  redirectToNewPet: authSelectors.selectRedirectToNewPet(
+  redirectToNewTool: authSelectors.selectRedirectToNewTool(
     state,
   ),
 });

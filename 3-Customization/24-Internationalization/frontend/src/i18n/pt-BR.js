@@ -22,33 +22,33 @@ const ptBR = {
   },
 
   app: {
-    title: 'Pet Hotel',
+    title: 'Tool Hotel',
   },
 
   entities: {
-    pet: {
-      name: 'pet',
-      label: 'Pets',
-      menu: 'Pets',
-      exporterFileName: 'pet_export',
+    tool: {
+      name: 'tool',
+      label: 'Tools',
+      menu: 'Tools',
+      exporterFileName: 'tool_export',
       list: {
-        menu: 'Pets',
-        title: 'Pets',
+        menu: 'Tools',
+        title: 'Tools',
       },
       create: {
-        success: 'Pet salvo com sucesso',
+        success: 'Tool salvo com sucesso',
       },
       update: {
-        success: 'Pet salvo com sucesso',
+        success: 'Tool salvo com sucesso',
       },
       destroy: {
-        success: 'Pet deletado com sucesso',
+        success: 'Tool deletado com sucesso',
       },
       destroyAll: {
-        success: 'Pet(s) deletado com sucesso',
+        success: 'Tool(s) deletado com sucesso',
       },
       edit: {
-        title: 'Editar Pet',
+        title: 'Editar Tool',
       },
       fields: {
         id: 'Id',
@@ -74,14 +74,14 @@ const ptBR = {
         },
       },
       new: {
-        title: 'Novo Pet',
+        title: 'Novo Tool',
       },
       view: {
-        title: 'Visualizar Pet',
+        title: 'Visualizar Tool',
       },
       importer: {
-        title: 'Importar Pets',
-        fileName: 'pet_import_template',
+        title: 'Importar Tools',
+        fileName: 'tool_import_template',
         hint:
           'Arquivos/Imagens devem ser as URLs dos arquivos, separados por espaço. Relacionamentos devem ser os IDs separados por espaço.',
       },
@@ -114,7 +114,7 @@ const ptBR = {
       fields: {
         id: 'Id',
         owner: 'Dono',
-        pet: 'Pet',
+        tool: 'Tool',
         arrivalRange: 'Chegada',
         arrival: 'Chegada',
         departureRange: 'Saída',
@@ -155,7 +155,7 @@ const ptBR = {
       validation: {
         periodPast: 'O período deve estar no futuro',
         periodFull:
-          'Desculpe, o Pet Hotel está cheio neste período',
+          'Desculpe, o Tool Hotel está cheio neste período',
       },
     },
   },
@@ -200,9 +200,9 @@ const ptBR = {
       label: 'Funcionário',
       description: 'Acesso de Funcionário',
     },
-    petOwner: {
-      label: 'Dono do Pet',
-      description: 'Acesso de dono to Pet',
+    toolOwner: {
+      label: 'Dono do Tool',
+      description: 'Acesso de dono to Tool',
     },
   },
 

@@ -19,14 +19,14 @@ import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import DatePickerFormItem from 'view/shared/form/items/DatePickerFormItem';
 import ImagesFormItem from 'view/shared/form/items/ImagesFormItem';
 import FilesFormItem from 'view/shared/form/items/FilesFormItem';
-import PetAutocompleteFormItem from 'view/pet/autocomplete/PetAutocompleteFormItem';
+import ToolAutocompleteFormItem from 'view/tool/autocomplete/ToolAutocompleteFormItem';
 
 const { fields } = model;
 
 class BookingForm extends Component {
   schema = new FormSchema(fields.id, [
     fields.owner,
-    fields.pet,
+    fields.tool,
     fields.arrival,
     fields.departure,
     fields.clientNotes,
@@ -98,10 +98,10 @@ class BookingForm extends Component {
                   label={fields.owner.label}
                   required={fields.owner.required}
                 />
-                <PetAutocompleteFormItem
-                  name={fields.pet.name}
-                  label={fields.pet.label}
-                  required={fields.pet.required}
+                <ToolAutocompleteFormItem
+                  name={fields.tool.name}
+                  label={fields.tool.label}
+                  required={fields.tool.required}
                 />
                 <DatePickerFormItem
                   name={fields.arrival.name}
@@ -149,7 +149,9 @@ class BookingForm extends Component {
                 <TextAreaFormItem
                   name={fields.cancellationNotes.name}
                   label={fields.cancellationNotes.label}
-                  required={fields.cancellationNotes.required}
+                  required={
+                    fields.cancellationNotes.required
+                  }
                 />
                 <InputFormItem
                   name={fields.fee.name}

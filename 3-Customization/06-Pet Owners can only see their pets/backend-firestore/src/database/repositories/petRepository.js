@@ -1,20 +1,20 @@
 const AbstractEntityRepository = require('./abstractEntityRepository');
 const admin = require('firebase-admin');
 const FirebaseQuery = require('../utils/firebaseQuery');
-const Pet = require('../models/pet');
+const Tool = require('../models/tool');
 
-class PetRepository extends AbstractEntityRepository {
+class ToolRepository extends AbstractEntityRepository {
   constructor() {
-    super(new Pet());
+    super(new Tool());
   }
 
   async refreshTwoWayRelations(record, options) {
     await this.refreshTwoWayRelationManyToOne(
       record,
-      'pet',
+      'tool',
       'bookings',
       'booking',
-      'pet',
+      'tool',
       options,
     );
   }
@@ -23,13 +23,13 @@ class PetRepository extends AbstractEntityRepository {
     await this.destroyRelationToOne(
       id,
       'booking',
-      'pet',
+      'tool',
       options,
     );
   }
 
   async findById(id) {
-    const record = await this.findDocument('pet', id);
+    const record = await this.findDocument('tool', id);
     return this.populate(record);
   }
 
@@ -89,7 +89,7 @@ class PetRepository extends AbstractEntityRepository {
 
     const collection = await admin
       .firestore()
-      .collection(`pet`)
+      .collection(`tool`)
       .get();
 
     const all = this.mapCollection(collection);
@@ -112,7 +112,7 @@ class PetRepository extends AbstractEntityRepository {
 
     const collection = await admin
       .firestore()
-      .collection(`pet`)
+      .collection(`tool`)
       .get();
 
     const all = this.mapCollection(collection);
@@ -156,4 +156,4 @@ class PetRepository extends AbstractEntityRepository {
   }
 }
 
-module.exports = PetRepository;
+module.exports = ToolRepository;

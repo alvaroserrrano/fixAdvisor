@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import AutocompleteFormItem from 'view/shared/form/items/AutocompleteFormItem';
-import PetService from 'modules/pet/petService';
+import ToolService from 'modules/tool/toolService';
 
-class PetAutocompleteFormItem extends Component {
+class ToolAutocompleteFormItem extends Component {
   fetchFn = (value) => {
     const { owner } = this.props;
-    return PetService.listAutocomplete(value, owner, 10);
+    return ToolService.listAutocomplete(value, owner, 10);
   };
 
   mapper = {
@@ -50,4 +50,4 @@ class PetAutocompleteFormItem extends Component {
   }
 }
 
-export default PetAutocompleteFormItem;
+export default ToolAutocompleteFormItem;

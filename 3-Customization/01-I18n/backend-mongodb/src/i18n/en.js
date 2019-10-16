@@ -1,6 +1,6 @@
 const en = {
   app: {
-    title: 'Pet Hotel',
+    title: 'Tool Hotel',
   },
 
   auth: {

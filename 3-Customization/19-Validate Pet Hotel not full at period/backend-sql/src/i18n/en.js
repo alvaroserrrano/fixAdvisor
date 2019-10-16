@@ -4,9 +4,9 @@ const en = {
   },
 
   entities: {
-    pet: {
+    tool: {
       validation: {
-        bookingExists: `There is a booking for this pet, so it can't be deleted`,
+        bookingExists: `There is a booking for this tool, so it can't be deleted`,
       },
     },
     booking: {
@@ -15,7 +15,7 @@ const en = {
           'Departure date must be after the arrival date',
         periodPast: 'The period must be in the future',
         periodFull:
-          'Sorry, the Pet Hotel is full at this time',
+          'Sorry, the Tool Hotel is full at this time',
       },
     },
   },

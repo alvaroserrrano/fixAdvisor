@@ -1,16 +1,16 @@
 const PermissionChecker = require('../../../services/iam/permissionChecker');
 const permissions = require('../../../security/permissions')
   .values;
-const PetService = require('../../../services/petService');
+const ToolService = require('../../../services/toolService');
 
 const schema = `
-  petAutocomplete(query: String, owner: String, limit: Int): [AutocompleteOption!]!
+  toolAutocomplete(query: String, owner: String, limit: Int): [AutocompleteOption!]!
 `;
 
 const resolver = {
-  petAutocomplete: async (root, args, context, info) => {
+  toolAutocomplete: async (root, args, context, info) => {
     new PermissionChecker(context).validateHas(
-      permissions.petAutocomplete,
+      permissions.toolAutocomplete,
     );
 
     const filter = {
@@ -18,7 +18,7 @@ const resolver = {
       owner: args.owner,
     };
 
-    return new PetService(context).findAllAutocomplete(
+    return new ToolService(context).findAllAutocomplete(
       filter,
       args.limit,
     );

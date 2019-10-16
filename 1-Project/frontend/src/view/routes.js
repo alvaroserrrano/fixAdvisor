@@ -81,47 +81,48 @@ const privateRoutes = [
   },
 
   {
-    path: '/pet',
-    loader: () => import('view/pet/list/PetListPage'),
-    permissionRequired: permissions.petRead,
+    path: '/tool',
+    loader: () => import('view/tool/list/ToolListPage'),
+    permissionRequired: permissions.toolRead,
     exact: true,
     icon: 'right',
-    label: i18n('entities.pet.menu'),
+    label: i18n('entities.tool.menu'),
     menu: true,
   },
   {
-    path: '/pet/new',
-    loader: () => import('view/pet/form/PetFormPage'),
+    path: '/tool/new',
+    loader: () => import('view/tool/form/ToolFormPage'),
     menu: false,
-    permissionRequired: permissions.petCreate,
+    permissionRequired: permissions.toolCreate,
     exact: true,
   },
   {
-    path: '/pet/importer',
+    path: '/tool/importer',
     loader: () =>
-      import('view/pet/importer/PetImporterPage'),
+      import('view/tool/importer/ToolImporterPage'),
     menu: false,
-    permissionRequired: permissions.petImport,
+    permissionRequired: permissions.toolImport,
     exact: true,
   },
   {
-    path: '/pet/:id/edit',
-    loader: () => import('view/pet/form/PetFormPage'),
+    path: '/tool/:id/edit',
+    loader: () => import('view/tool/form/ToolFormPage'),
     menu: false,
-    permissionRequired: permissions.petEdit,
+    permissionRequired: permissions.toolEdit,
     exact: true,
   },
   {
-    path: '/pet/:id',
-    loader: () => import('view/pet/view/PetViewPage'),
+    path: '/tool/:id',
+    loader: () => import('view/tool/view/ToolViewPage'),
     menu: false,
-    permissionRequired: permissions.petRead,
+    permissionRequired: permissions.toolRead,
     exact: true,
   },
 
   {
     path: '/booking',
-    loader: () => import('view/booking/list/BookingListPage'),
+    loader: () =>
+      import('view/booking/list/BookingListPage'),
     permissionRequired: permissions.bookingRead,
     exact: true,
     icon: 'right',
@@ -130,7 +131,8 @@ const privateRoutes = [
   },
   {
     path: '/booking/new',
-    loader: () => import('view/booking/form/BookingFormPage'),
+    loader: () =>
+      import('view/booking/form/BookingFormPage'),
     menu: false,
     permissionRequired: permissions.bookingCreate,
     exact: true,
@@ -145,14 +147,16 @@ const privateRoutes = [
   },
   {
     path: '/booking/:id/edit',
-    loader: () => import('view/booking/form/BookingFormPage'),
+    loader: () =>
+      import('view/booking/form/BookingFormPage'),
     menu: false,
     permissionRequired: permissions.bookingEdit,
     exact: true,
   },
   {
     path: '/booking/:id',
-    loader: () => import('view/booking/view/BookingViewPage'),
+    loader: () =>
+      import('view/booking/view/BookingViewPage'),
     menu: false,
     permissionRequired: permissions.bookingRead,
     exact: true,

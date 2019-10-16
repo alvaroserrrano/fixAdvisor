@@ -4,9 +4,9 @@ const en = {
   },
 
   entities: {
-    pet: {
+    tool: {
       validation: {
-        bookingExists: `There is a booking for this pet, so it can't be deleted`,
+        bookingExists: `There is a booking for this tool, so it can't be deleted`,
       },
     },
     booking: {

@@ -10,9 +10,9 @@ const BookingSchema = new Schema(
       ref: 'user',
       required: true,
     },
-    pet: {
+    tool: {
       type: Schema.Types.ObjectId,
-      ref: 'pet',
+      ref: 'tool',
       required: true,
     },
     arrival: {

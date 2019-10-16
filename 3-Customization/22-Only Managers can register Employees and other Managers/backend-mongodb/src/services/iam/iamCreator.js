@@ -194,7 +194,7 @@ module.exports = class IamCreator {
       return;
     }
 
-    if (!this._roles.includes(Roles.values.petOwner)) {
+    if (!this._roles.includes(Roles.values.toolOwner)) {
       throw new ForbiddenError(this.language);
     }
 

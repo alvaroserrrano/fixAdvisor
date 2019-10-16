@@ -3,7 +3,7 @@ class Roles {
     return {
       manager: 'manager',
       employee: 'employee',
-      petOwner: 'petOwner',
+      toolOwner: 'toolOwner',
     };
   }
 }

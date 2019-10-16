@@ -65,7 +65,10 @@ export default class BookingService {
           $data: BookingInput!
           $importHash: String!
         ) {
-          bookingImport(data: $data, importHash: $importHash)
+          bookingImport(
+            data: $data
+            importHash: $importHash
+          )
         }
       `,
 
@@ -89,7 +92,7 @@ export default class BookingService {
               fullName
               email
             }
-            pet {
+            tool {
               id
               name
             }
@@ -151,7 +154,7 @@ export default class BookingService {
                 fullName
                 email
               }
-              pet {
+              tool {
                 id
                 name
               }
@@ -194,7 +197,10 @@ export default class BookingService {
           $query: String
           $limit: Int
         ) {
-          bookingAutocomplete(query: $query, limit: $limit) {
+          bookingAutocomplete(
+            query: $query
+            limit: $limit
+          ) {
             id
             label
           }

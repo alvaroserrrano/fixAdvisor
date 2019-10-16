@@ -45,79 +45,83 @@ class Permissions {
           roles.editor,
           roles.viewer,
 
-          roles.petEditor,
-          roles.petViewer,
+          roles.toolEditor,
+          roles.toolViewer,
           roles.bookingEditor,
           roles.bookingViewer,
         ],
       },
       auditLogRead: {
         id: 'auditLogRead',
-        allowedRoles: [roles.owner, roles.auditLogViewer, roles.viewer],
+        allowedRoles: [
+          roles.owner,
+          roles.auditLogViewer,
+          roles.viewer,
+        ],
       },
       settingsEdit: {
         id: 'settingsEdit',
         allowedRoles: [roles.owner],
       },
-      petImport: {
-        id: 'petImport',
+      toolImport: {
+        id: 'toolImport',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.petEditor,
+          roles.toolEditor,
         ],
       },
-      petCreate: {
-        id: 'petCreate',
+      toolCreate: {
+        id: 'toolCreate',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.petEditor,
+          roles.toolEditor,
         ],
-        allowedStorageFolders: ['pet'],
+        allowedStorageFolders: ['tool'],
       },
-      petEdit: {
-        id: 'petEdit',
+      toolEdit: {
+        id: 'toolEdit',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.petEditor,
+          roles.toolEditor,
         ],
-        allowedStorageFolders: ['pet'],
+        allowedStorageFolders: ['tool'],
       },
-      petDestroy: {
-        id: 'petDestroy',
+      toolDestroy: {
+        id: 'toolDestroy',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.entityEditor,
-          roles.petEditor,
+          roles.toolEditor,
         ],
-        allowedStorageFolders: ['pet'],
+        allowedStorageFolders: ['tool'],
       },
-      petRead: {
-        id: 'petRead',
+      toolRead: {
+        id: 'toolRead',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.viewer,
           roles.entityEditor,
-          roles.petEditor,
-          roles.petViewer,
+          roles.toolEditor,
+          roles.toolViewer,
         ],
       },
-      petAutocomplete: {
-        id: 'petAutocomplete',
+      toolAutocomplete: {
+        id: 'toolAutocomplete',
         allowedRoles: [
           roles.owner,
           roles.editor,
           roles.viewer,
           roles.entityEditor,
-          roles.petEditor,
-          roles.petViewer,
+          roles.toolEditor,
+          roles.toolViewer,
           roles.bookingEditor,
           roles.bookingViewer,
         ],
@@ -182,8 +186,8 @@ class Permissions {
           roles.entityEditor,
           roles.bookingEditor,
           roles.bookingViewer,
-          roles.petEditor,
-          roles.petViewer,
+          roles.toolEditor,
+          roles.toolViewer,
         ],
       },
     };

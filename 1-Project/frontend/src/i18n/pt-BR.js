@@ -26,62 +26,62 @@ const ptBR = {
   },
 
   entities: {
-    pet: {
-      name: 'pet',
+    tool: {
+      name: 'tool',
       label: '',
       menu: '',
-      exporterFileName: 'pet_exportados',
+      exporterFileName: 'tool_exportados',
       list: {
         menu: '',
         title: '',
       },
       create: {
-        success: 'pet salvo com sucesso',
+        success: 'tool salvo com sucesso',
       },
       update: {
-        success: 'pet salvo com sucesso',
+        success: 'tool salvo com sucesso',
       },
       destroy: {
-        success: 'pet deletado com sucesso',
+        success: 'tool deletado com sucesso',
       },
       destroyAll: {
-        success: 'pet(s) deletado com sucesso',
+        success: 'tool(s) deletado com sucesso',
       },
       edit: {
-        title: 'Editar pet',
+        title: 'Editar tool',
       },
       fields: {
         id: '',
-        'owner': '',
-        'name': '',
-        'type': '',
-        'breed': '',
-        'size': '',
-        'bookings': '',
+        owner: '',
+        name: '',
+        type: '',
+        breed: '',
+        size: '',
+        bookings: '',
         createdAt: 'Criado em',
         updatedAt: 'Atualizado em',
         createdAtRange: 'Criado em',
       },
       enumerators: {
-        'type': {
-          'cat': '',
-          'dog': '',
+        type: {
+          cat: '',
+          dog: '',
         },
-        'size': {
-          'small': '',
-          'medium': '',
-          'large': '',
+        size: {
+          small: '',
+          medium: '',
+          large: '',
         },
       },
       new: {
-        title: 'Novo pet',
+        title: 'Novo tool',
       },
       view: {
-        title: 'Visualizar pet',
+        title: 'Visualizar tool',
       },
       importer: {
-        title: 'Importar pets',
-        fileName: 'pet_template_importacao',
+        title: 'Importar tools',
+        fileName: 'tool_template_importacao',
         hint:
           'Arquivos/Imagens devem ser as URLs dos arquivos, separados por espaço. Relacionamentos devem ser os IDs separados por espaço.',
       },
@@ -113,30 +113,30 @@ const ptBR = {
       },
       fields: {
         id: '',
-        'owner': '',
-        'pet': '',
-        'arrivalRange': '',
-        'arrival': '',
-        'departureRange': '',
-        'departure': '',
-        'clientNotes': '',
-        'employeeNotes': '',
-        'photos': '',
-        'status': '',
-        'cancellationNotes': '',
-        'feeRange': '',
-        'fee': '',
-        'receipt': '',
+        owner: '',
+        tool: '',
+        arrivalRange: '',
+        arrival: '',
+        departureRange: '',
+        departure: '',
+        clientNotes: '',
+        employeeNotes: '',
+        photos: '',
+        status: '',
+        cancellationNotes: '',
+        feeRange: '',
+        fee: '',
+        receipt: '',
         createdAt: 'Criado em',
         updatedAt: 'Atualizado em',
         createdAtRange: 'Criado em',
       },
       enumerators: {
-        'status': {
-          'booked': '',
-          'progress': '',
-          'cancelled': '',
-          'completed': '',
+        status: {
+          booked: '',
+          progress: '',
+          cancelled: '',
+          completed: '',
         },
       },
       new: {
@@ -217,13 +217,13 @@ const ptBR = {
       description:
         'Acesso de visualização a todas as entidades',
     },
-    petEditor: {
-      label: 'Editor de pet',
-      description: 'Acesso de edição aos pet',
+    toolEditor: {
+      label: 'Editor de tool',
+      description: 'Acesso de edição aos tool',
     },
-    petViewer: {
-      label: 'Visualizador de pet',
-      description: 'Acesso de visualização aos pet',
+    toolViewer: {
+      label: 'Visualizador de tool',
+      description: 'Acesso de visualização aos tool',
     },
     bookingEditor: {
       label: 'Editor de booking',

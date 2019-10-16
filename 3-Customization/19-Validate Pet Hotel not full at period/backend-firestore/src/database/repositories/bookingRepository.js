@@ -13,8 +13,8 @@ class BookingRepository extends AbstractEntityRepository {
   async refreshTwoWayRelations(record, options) {
     await this.refreshTwoWayRelationOneToMany(
       record,
-      'pet',
-      'pet',
+      'tool',
+      'tool',
       'bookings',
       options,
     );
@@ -23,7 +23,7 @@ class BookingRepository extends AbstractEntityRepository {
   async destroyFromRelations(id, options) {
     await this.destroyRelationToMany(
       id,
-      'pet',
+      'tool',
       'bookings',
       options,
     );
@@ -64,8 +64,8 @@ class BookingRepository extends AbstractEntityRepository {
         query.appendId('owner', filter.owner);
       }
 
-      if (filter.pet) {
-        query.appendId('pet', filter.pet);
+      if (filter.tool) {
+        query.appendId('tool', filter.tool);
       }
 
       if (filter.arrivalRange) {
@@ -148,7 +148,7 @@ class BookingRepository extends AbstractEntityRepository {
       return record;
     }
 
-    record.pet = await this.findRelation('pet', record.pet);
+    record.tool = await this.findRelation('tool', record.tool);
 
     record.owner = await this.findRelation(
       'user',
@@ -158,11 +158,11 @@ class BookingRepository extends AbstractEntityRepository {
     return record;
   }
 
-  async existsForPet(petId) {
+  async existsForTool(toolId) {
     const collection = await admin
       .firestore()
       .collection(`booking`)
-      .where('pet', '==', petId)
+      .where('tool', '==', toolId)
       .limit(1)
       .get();
 

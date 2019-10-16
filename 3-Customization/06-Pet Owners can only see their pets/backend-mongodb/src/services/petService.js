@@ -1,12 +1,12 @@
-const PetRepository = require('../database/repositories/petRepository');
+const ToolRepository = require('../database/repositories/toolRepository');
 const ValidationError = require('../errors/validationError');
 const AbstractRepository = require('../database/repositories/abstractRepository');
 const UserRoleChecker = require('./iam/userRoleChecker');
 const ForbiddenError = require('../errors/forbiddenError');
 
-module.exports = class PetService {
+module.exports = class ToolService {
   constructor({ currentUser, language }) {
-    this.repository = new PetRepository();
+    this.repository = new ToolRepository();
     this.currentUser = currentUser;
     this.language = language;
   }
@@ -32,7 +32,7 @@ module.exports = class PetService {
   }
 
   async _validateCreate(data) {
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       if (data.owner !== this.currentUser.id) {
         throw new ForbiddenError(this.language);
       }
@@ -64,7 +64,7 @@ module.exports = class PetService {
   }
 
   async _validateUpdate(id, data) {
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       data.owner = this.currentUser.id;
       await this._validateIsSameOwner(id);
     }
@@ -91,7 +91,7 @@ module.exports = class PetService {
   }
 
   async _validateDestroy(id) {
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       await this._validateIsSameOwner(id);
     }
   }
@@ -107,7 +107,7 @@ module.exports = class PetService {
   }
 
   async _validateFindById(record) {
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       if (
         record.owner &&
         record.owner.id !== this.currentUser.id
@@ -118,7 +118,7 @@ module.exports = class PetService {
   }
 
   async findAllAutocomplete(filter, limit) {
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       if (
         !filter ||
         !filter.owner ||
@@ -135,7 +135,7 @@ module.exports = class PetService {
   }
 
   async findAndCountAll(args) {
-    if (UserRoleChecker.isPetOwner(this.currentUser)) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
       args.filter = {
         ...args.filter,
         owner: this.currentUser.id,

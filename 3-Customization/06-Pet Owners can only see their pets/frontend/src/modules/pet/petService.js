@@ -1,15 +1,15 @@
 import gql from 'graphql-tag';
 import graphqlClient from 'modules/shared/graphql/graphqlClient';
 
-export default class PetService {
+export default class ToolService {
   static async update(id, data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation PET_UPDATE(
+        mutation TOOL_UPDATE(
           $id: String!
-          $data: PetInput!
+          $data: ToolInput!
         ) {
-          petUpdate(id: $id, data: $data) {
+          toolUpdate(id: $id, data: $data) {
             id
           }
         }
@@ -21,14 +21,14 @@ export default class PetService {
       },
     });
 
-    return response.data.petUpdate;
+    return response.data.toolUpdate;
   }
 
   static async destroyAll(ids) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation PET_DESTROY($ids: [String!]!) {
-          petDestroy(ids: $ids)
+        mutation TOOL_DESTROY($ids: [String!]!) {
+          toolDestroy(ids: $ids)
         }
       `,
 
@@ -37,14 +37,14 @@ export default class PetService {
       },
     });
 
-    return response.data.petDestroy;
+    return response.data.toolDestroy;
   }
 
   static async create(data) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation PET_CREATE($data: PetInput!) {
-          petCreate(data: $data) {
+        mutation TOOL_CREATE($data: ToolInput!) {
+          toolCreate(data: $data) {
             id
           }
         }
@@ -55,17 +55,17 @@ export default class PetService {
       },
     });
 
-    return response.data.petCreate;
+    return response.data.toolCreate;
   }
 
   static async import(values, importHash) {
     const response = await graphqlClient.mutate({
       mutation: gql`
-        mutation PET_IMPORT(
-          $data: PetInput!
+        mutation TOOL_IMPORT(
+          $data: ToolInput!
           $importHash: String!
         ) {
-          petImport(data: $data, importHash: $importHash)
+          toolImport(data: $data, importHash: $importHash)
         }
       `,
 
@@ -75,14 +75,14 @@ export default class PetService {
       },
     });
 
-    return response.data.petImport;
+    return response.data.toolImport;
   }
 
   static async find(id) {
     const response = await graphqlClient.query({
       query: gql`
-        query PET_FIND($id: String!) {
-          petFind(id: $id) {
+        query TOOL_FIND($id: String!) {
+          toolFind(id: $id) {
             id
             owner {
               id
@@ -107,19 +107,19 @@ export default class PetService {
       },
     });
 
-    return response.data.petFind;
+    return response.data.toolFind;
   }
 
   static async list(filter, orderBy, limit, offset) {
     const response = await graphqlClient.query({
       query: gql`
-        query PET_LIST(
-          $filter: PetFilterInput
-          $orderBy: PetOrderByEnum
+        query TOOL_LIST(
+          $filter: ToolFilterInput
+          $orderBy: ToolOrderByEnum
           $limit: Int
           $offset: Int
         ) {
-          petList(
+          toolList(
             filter: $filter
             orderBy: $orderBy
             limit: $limit
@@ -152,18 +152,18 @@ export default class PetService {
       },
     });
 
-    return response.data.petList;
+    return response.data.toolList;
   }
 
   static async listAutocomplete(query, owner, limit) {
     const response = await graphqlClient.query({
       query: gql`
-        query PET_AUTOCOMPLETE(
+        query TOOL_AUTOCOMPLETE(
           $query: String
           $owner: String
           $limit: Int
         ) {
-          petAutocomplete(
+          toolAutocomplete(
             query: $query
             owner: $owner
             limit: $limit
@@ -181,7 +181,7 @@ export default class PetService {
       },
     });
 
-    return response.data.petAutocomplete;
+    return response.data.toolAutocomplete;
   }
 
   static async exists() {

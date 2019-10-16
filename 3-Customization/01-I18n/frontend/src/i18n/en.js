@@ -22,33 +22,33 @@ const en = {
   },
 
   app: {
-    title: 'Pet Hotel',
+    title: 'Tool Hotel',
   },
 
   entities: {
-    pet: {
-      name: 'pet',
-      label: 'Pets',
-      menu: 'Pets',
-      exporterFileName: 'pet_export',
+    tool: {
+      name: 'tool',
+      label: 'Tools',
+      menu: 'Tools',
+      exporterFileName: 'tool_export',
       list: {
-        menu: 'Pets',
-        title: 'Pets',
+        menu: 'Tools',
+        title: 'Tools',
       },
       create: {
-        success: 'Pet saved successfully',
+        success: 'Tool saved successfully',
       },
       update: {
-        success: 'Pet saved successfully',
+        success: 'Tool saved successfully',
       },
       destroy: {
-        success: 'Pet deleted successfully',
+        success: 'Tool deleted successfully',
       },
       destroyAll: {
-        success: 'Pet(s) deleted successfully',
+        success: 'Tool(s) deleted successfully',
       },
       edit: {
-        title: 'Edit Pet',
+        title: 'Edit Tool',
       },
       fields: {
         id: 'Id',
@@ -74,14 +74,14 @@ const en = {
         },
       },
       new: {
-        title: 'New Pet',
+        title: 'New Tool',
       },
       view: {
-        title: 'View Pet',
+        title: 'View Tool',
       },
       importer: {
-        title: 'Import Pets',
-        fileName: 'pet_import_template',
+        title: 'Import Tools',
+        fileName: 'tool_import_template',
         hint:
           'Files/Images columns must be the URLs of the files separated by space.',
       },
@@ -114,7 +114,7 @@ const en = {
       fields: {
         id: 'Id',
         owner: 'Owner',
-        pet: 'Pet',
+        tool: 'Tool',
         arrivalRange: 'Arrival',
         arrival: 'Arrival',
         departureRange: 'Departure',
@@ -216,13 +216,13 @@ const en = {
       label: 'Entity Viewer',
       description: 'View access to all entities',
     },
-    petEditor: {
-      label: 'pet Editor',
-      description: 'Edit access to pet',
+    toolEditor: {
+      label: 'tool Editor',
+      description: 'Edit access to tool',
     },
-    petViewer: {
-      label: 'pet Viewer',
-      description: 'View access to pet',
+    toolViewer: {
+      label: 'tool Viewer',
+      description: 'View access to tool',
     },
     bookingEditor: {
       label: 'booking Editor',

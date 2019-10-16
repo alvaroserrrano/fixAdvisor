@@ -13,7 +13,7 @@ import TableWrapper from 'view/shared/styles/TableWrapper';
 import ButtonLink from 'view/shared/styles/ButtonLink';
 import UserListItem from 'view/iam/list/users/UserListItem';
 import FilesListView from 'view/shared/list/FileListView';
-import PetListItem from 'view/pet/list/PetListItem';
+import ToolListItem from 'view/tool/list/ToolListItem';
 
 const { fields } = model;
 
@@ -36,8 +36,8 @@ class BookingListTable extends Component {
     fields.owner.forTable({
       render: (value) => <UserListItem value={value} />,
     }),
-    fields.pet.forTable({
-      render: (value) => <PetListItem value={value} />,
+    fields.tool.forTable({
+      render: (value) => <ToolListItem value={value} />,
     }),
     fields.arrival.forTable(),
     fields.departure.forTable(),

@@ -55,7 +55,6 @@ const ptBR = {
         owner: '',
         name: '',
         type: '',
-        breed: '',
         size: '',
         bookings: '',
         createdAt: 'Criado em',

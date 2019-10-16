@@ -35,11 +35,6 @@ class ToolView extends Component {
         />
 
         <TextViewItem
-          label={fields.breed.label}
-          value={fields.breed.forView(record.breed)}
-        />
-
-        <TextViewItem
           label={fields.size.label}
           value={fields.size.forView(record.size)}
         />

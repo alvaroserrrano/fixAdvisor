@@ -24,7 +24,6 @@ class ToolForm extends Component {
     fields.owner,
     fields.name,
     fields.type,
-    fields.breed,
     fields.size,
     fields.bookings,
   ]);
@@ -104,11 +103,6 @@ class ToolForm extends Component {
                     }),
                   )}
                   required={fields.type.required}
-                />
-                <InputFormItem
-                  name={fields.breed.name}
-                  label={fields.breed.label}
-                  required={fields.breed.required}
                 />
                 <SelectFormItem
                   name={fields.size.name}

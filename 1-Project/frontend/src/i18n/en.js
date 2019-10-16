@@ -36,16 +36,16 @@ const en = {
         title: 'title',
       },
       create: {
-        success:  tool created successfully',
+        success: 'tool created successfully',
       },
       update: {
-        success:  tool updates successfully',
+        success: 'tool updated successfully',
       },
       destroy: {
-        success:  tool deleted successfully',
+        success: 'tool deleted successfully',
       },
       destroyAll: {
-        success:  tool(s) deleted successfully',
+        success: 'tool(s) deleted successfully',
       },
       edit: {
         title: 'Edit tool',
@@ -55,7 +55,6 @@ const en = {
         owner: 'owner',
         name: 'name',
         type: 'type',
-        breed: 'bree',
         size: 'size',
         bookings: 'bookings',
         createdAt: 'Created at',
@@ -114,7 +113,7 @@ const en = {
       fields: {
         id: 'id',
         owner: 'owner',
-        tool:  tool',
+        tool: 'tool',
         arrivalRange: 'Arrival',
         arrival: 'Arrival',
         departureRange: 'Departure',

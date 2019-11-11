@@ -3,7 +3,7 @@ const schema = `
     id: String
     owner: String
     name: String
-    type: ToolTypeEnum
+    type: toolTypeEnum
     size: ToolSizeEnum
     createdAtRange: [ DateTime ]
   }

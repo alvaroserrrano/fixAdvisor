@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import PermissionChecker from './permissionChecker';
+import PermissionChecker from 'modules/auth/permissionChecker';
 import Roles from 'security/roles';
 
 const selectRaw = (state) => state.auth;
@@ -123,7 +123,7 @@ const selectCurrentUserIsManager = createSelector(
   (currentUser) => {
     return new PermissionChecker(
       currentUser,
-    ).rolesMatchOneOf([Roles.values.manager]);
+    ).rolesMatchOneOf(Roles.values.manager);
   },
 );
 
@@ -132,9 +132,16 @@ const selectCurrentUserIsEmployee = createSelector(
   (currentUser, isManager) => {
     const isEmployee = new PermissionChecker(
       currentUser,
-    ).rolesMatchOneOf([Roles.values.employee]);
+    ).rolesMatchOneOf(Roles.values.employee);
 
     return isEmployee && !isManager;
+  },
+);
+
+const selectRedirectToNewTool = createSelector(
+  [selectRaw],
+  (raw) => {
+    return !!raw.redirectToNewTool;
   },
 );
 
@@ -158,6 +165,7 @@ const selectors = {
   selectCurrentUserIsToolOwner,
   selectCurrentUserIsManager,
   selectCurrentUserIsEmployee,
+  selectRedirectToNewTool,
 };
 
 export default selectors;

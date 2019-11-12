@@ -14,7 +14,7 @@ const resolver = {
       permissions.toolRead,
     );
 
-    return new TsoolService(context).findAndCountAll({
+    return new ToolService(context).findAndCountAll({
       ...args,
       requestedAttributes: graphqlSelectRequestedAttributes(
         info,

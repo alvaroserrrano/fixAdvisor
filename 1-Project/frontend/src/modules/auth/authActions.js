@@ -104,6 +104,7 @@ const actions = {
         payload: {
           currentUser,
           authenticationUser,
+          redirectToNewTool,
         },
       });
     } catch (error) {

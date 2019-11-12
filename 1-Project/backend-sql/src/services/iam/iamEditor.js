@@ -116,7 +116,7 @@ module.exports = class IamEditor {
     assert(this.data.id, 'id is required');
     assert(this._roles, 'roles is required (can be empty)');
 
-    if (await this._isRemovingOwnOwnerRole()) {
+    if (await this._isRemovingOwnManagerRole()) {
       throw new ValidationError(
         this.language,
         'iam.errors.revokingOwnPermission',

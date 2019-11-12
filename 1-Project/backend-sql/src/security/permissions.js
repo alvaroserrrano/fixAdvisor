@@ -11,19 +11,15 @@ class Permissions {
       },
       iamCreate: {
         id: 'iamCreate',
-        allowedRoles: [roles.manager],
+        allowedRoles: [roles.manager, roles.employee],
       },
       iamImport: {
         id: 'iamImport',
-        allowedRoles: [
-          roles.manager,
-          roles.iamSecurityReviewer,
-          roles.editor,
-        ],
+        allowedRoles: [roles.manager],
       },
       iamRead: {
         id: 'iamRead',
-        allowedRoles: [roles.manager],
+        allowedRoles: [roles.manager, roles.employee],
       },
       iamUserAutocomplete: {
         id: 'iamUserAutocomplete',
@@ -61,7 +57,11 @@ class Permissions {
       },
       toolDestroy: {
         id: 'toolDestroy',
-        allowedRoles: [roles.manager],
+        allowedRoles: [
+          roles.manager,
+          roles.employee,
+          roles.toolOwner,
+        ],
         allowedStorageFolders: ['tool'],
       },
       toolRead: {
@@ -83,7 +83,7 @@ class Permissions {
 
       bookingImport: {
         id: 'bookingImport',
-        allowedRoles: [roles.manager],
+        allowedRoles: [roles.manager, roles.employee],
       },
       bookingCreate: {
         id: 'bookingCreate',

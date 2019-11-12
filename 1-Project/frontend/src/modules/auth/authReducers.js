@@ -43,7 +43,7 @@ export default (state = initialData, { type, payload }) => {
       currentUser: payload.currentUser || null,
       errorMessage: null,
       loading: false,
-      redirectToNewTool: false,
+      redirectToNewTool: !!payload.redirectToNewTool,
     };
   }
 
@@ -54,6 +54,7 @@ export default (state = initialData, { type, payload }) => {
       currentUser: null,
       errorMessage: payload || null,
       loading: false,
+      redirectToNewTool: false,
     };
   }
 

@@ -4,7 +4,7 @@ const permissions = require('../../../security/permissions')
 const ToolService = require('../../../services/toolService');
 
 const schema = `
-  toolAutocomplete(query: String, limit: Int): [AutocompleteOption!]!
+  toolAutocomplete(query: String, owner: String, limit: Int): [AutocompleteOption!]!
 `;
 
 const resolver = {
@@ -13,8 +13,13 @@ const resolver = {
       permissions.toolAutocomplete,
     );
 
+    const filter = {
+      query: args.query,
+      owner: args.owner,
+    };
+
     return new ToolService(context).findAllAutocomplete(
-      args.query,
+      filter,
       args.limit,
     );
   },

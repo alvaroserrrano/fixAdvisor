@@ -47,10 +47,14 @@ class RoutesComponent extends Component {
         <Route
           exact
           path="/"
-          render={() => (
-            <Redirect to="/tool/new/"></Redirect>
-          )}
-        ></Route>
+          render={() =>
+            this.props.redirectToNewTool ? (
+              <Redirect to="/tool/new" />
+            ) : (
+              <Redirect to="/booking" />
+            )
+          }
+        />
 
         {routes.publicRoutes.map((route) => (
           <PublicRoute
@@ -121,6 +125,9 @@ const select = (state) => ({
     authSelectors.selectLoadingInit(state) ||
     layoutSelectors.selectLoading(state),
   currentUser: authSelectors.selectCurrentUser(state),
+  redirectToNewTool: authSelectors.selectRedirectToNewTool(
+    state,
+  ),
 });
 
 export default withRouter(connect(select)(RoutesComponent));

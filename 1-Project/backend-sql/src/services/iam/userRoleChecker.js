@@ -5,6 +5,7 @@ module.exports = class UserRoleChecker {
     if (!currentUser || !currentUser.roles) {
       return false;
     }
+
     return !currentUser.roles.some((role) => {
       return [
         Roles.values.manager,
@@ -30,7 +31,7 @@ module.exports = class UserRoleChecker {
 
     return (
       !this.isManager(currentUser) &&
-      !this.isPetOwner(currentUser)
+      !this.isToolOwner(currentUser)
     );
   }
 };

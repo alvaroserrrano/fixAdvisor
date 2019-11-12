@@ -1,12 +1,13 @@
 const schema = `
-  enum toolTypeEnum {
-    plumber,
-    gardener,
-    mechanical technician,
-     cable specialist,
-    electrician,
-    painter,
-    specialized engineer
+  enum ToolTypeEnum {
+    mechanical
+    IT
+    plumber
+    gardener
+    cable
+    electrician
+    painter
+    other
   }
 
   enum ToolSizeEnum {

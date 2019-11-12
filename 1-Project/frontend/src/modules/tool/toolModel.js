@@ -33,16 +33,12 @@ const fields = {
         label: enumeratorLabel('type', 'mechanical'),
       },
       {
-        id: 'electrician',
-        label: enumeratorLabel('type', 'electrician'),
+        id: 'IT',
+        label: enumeratorLabel('type', 'IT'),
       },
       {
         id: 'plumber',
         label: enumeratorLabel('type', 'plumber'),
-      },
-      {
-        id: 'IT',
-        label: enumeratorLabel('type', 'IT'),
       },
       {
         id: 'gardener',
@@ -51,6 +47,10 @@ const fields = {
       {
         id: 'cable',
         label: enumeratorLabel('type', 'cable'),
+      },
+      {
+        id: 'electrician',
+        label: enumeratorLabel('type', 'electrician'),
       },
       {
         id: 'painter',

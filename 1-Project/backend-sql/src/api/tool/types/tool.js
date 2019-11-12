@@ -3,7 +3,7 @@ const schema = `
     id: String!
     owner: User
     name: String
-    type: toolTypeEnum
+    type: ToolTypeEnum
     size: ToolSizeEnum
     bookings: [ Booking! ]
     createdAt: DateTime

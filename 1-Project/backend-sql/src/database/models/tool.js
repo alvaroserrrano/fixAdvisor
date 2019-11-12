@@ -20,13 +20,14 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.ENUM,
         allowNull: false,
         values: [
+          'mechanical',
+          'IT',
           'plumber',
           'gardener',
-          'mechanical technician',
-          ' cable specialist',
+          'cable',
           'electrician',
           'painter',
-          'specialized engineer',
+          'other',
         ],
       },
       size: {

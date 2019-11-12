@@ -29,7 +29,7 @@ const en = {
     tool: {
       name: 'Tool',
       label: 'Label',
-      menu: 'Menu',
+      menu: 'Tool',
       exporterFileName: 'tool_export',
       list: {
         menu: 'menu',

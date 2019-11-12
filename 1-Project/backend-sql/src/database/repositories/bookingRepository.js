@@ -123,18 +123,29 @@ class BookingRepository extends AbstractEntityRepository {
     );
   }
 
-  async findAllAutocomplete(query, limit) {
-    const filter = new SequelizeAutocompleteFilter(
+  async findAllAutocomplete(filter, limit) {
+    const sequelizeFilter = new SequelizeAutocompleteFilter(
       models.Sequelize,
     );
 
-    if (query) {
-      filter.appendId('id', query);
+    if (filter && filter.query) {
+      sequelizeFilter.appendId('id', filter.query);
+    }
+
+    let where = sequelizeFilter.getWhere();
+
+    if (filter && filter.owner) {
+      where = {
+        ...where,
+        [models.Sequelize.Op.and]: {
+          ownerId: filter.owner,
+        },
+      };
     }
 
     const records = await models[this.modelName].findAll({
-      attributes: ['id', 'id'],
-      where: filter.getWhere(),
+      attributes: ['id'],
+      where,
       limit: limit || undefined,
       orderBy: [['id', 'ASC']],
     });

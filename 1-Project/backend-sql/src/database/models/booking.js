@@ -1,4 +1,4 @@
-const moment = require('moment');
+const bookingStatus = require('../../enumerators/bookingStatus');
 
 module.exports = function(sequelize, DataTypes) {
   const booking = sequelize.define(
@@ -19,25 +19,31 @@ module.exports = function(sequelize, DataTypes) {
       },
       clientNotes: {
         type: DataTypes.TEXT,
-        validate: {},
+        validate: {
+          max: 20000,
+        },
       },
       employeeNotes: {
         type: DataTypes.TEXT,
-        validate: {},
+        validate: {
+          max: 20000,
+        },
       },
       status: {
         type: DataTypes.ENUM,
         allowNull: false,
         values: [
-          'booked',
-          'progress',
-          'cancelled',
-          'completed',
+          bookingStatus.BOOKED,
+          bookingStatus.CANCELLED,
+          bookingStatus.COMPLETED,
+          bookingStatus.PROGRESS,
         ],
       },
       cancellationNotes: {
         type: DataTypes.TEXT,
-        validate: {},
+        validate: {
+          max: 20000,
+        },
       },
       fee: {
         type: DataTypes.DECIMAL(24, 2),

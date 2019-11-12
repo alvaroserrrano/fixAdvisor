@@ -190,15 +190,17 @@ export default class BookingService {
     return response.data.bookingList;
   }
 
-  static async listAutocomplete(query, limit) {
+  static async listAutocomplete(query, owner, limit) {
     const response = await graphqlClient.query({
       query: gql`
         query BOOKING_AUTOCOMPLETE(
           $query: String
+          $owner: String
           $limit: Int
         ) {
           bookingAutocomplete(
             query: $query
+            owner: $owner
             limit: $limit
           ) {
             id

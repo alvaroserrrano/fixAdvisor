@@ -9,6 +9,7 @@ import DecimalField from 'modules/shared/fields/decimalField';
 import RelationToOneField from 'modules/shared/fields/relationToOneField';
 import FilesField from 'modules/shared/fields/filesField';
 import ImagesField from 'modules/shared/fields/imagesField';
+import bookingStatus from 'modules/booking/bookingStatus';
 
 function label(name) {
   return i18n(`entities.booking.fields.${name}`);
@@ -65,20 +66,32 @@ const fields = {
     label('status'),
     [
       {
-        id: 'booked',
-        label: enumeratorLabel('status', 'booked'),
+        id: bookingStatus.BOOKED,
+        label: enumeratorLabel(
+          'status',
+          bookingStatus.BOOKED,
+        ),
       },
       {
-        id: 'progress',
-        label: enumeratorLabel('status', 'progress'),
+        id: bookingStatus.PROGRESS,
+        label: enumeratorLabel(
+          'status',
+          bookingStatus.PROGRESS,
+        ),
       },
       {
-        id: 'cancelled',
-        label: enumeratorLabel('status', 'cancelled'),
+        id: bookingStatus.CANCELLED,
+        label: enumeratorLabel(
+          'status',
+          bookingStatus.CANCELLED,
+        ),
       },
       {
-        id: 'completed',
-        label: enumeratorLabel('status', 'completed'),
+        id: bookingStatus.COMPLETED,
+        label: enumeratorLabel(
+          'status',
+          bookingStatus.COMPLETED,
+        ),
       },
     ],
     {

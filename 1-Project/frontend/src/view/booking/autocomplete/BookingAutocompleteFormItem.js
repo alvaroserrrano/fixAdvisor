@@ -1,52 +1,220 @@
-import React, { Component } from 'react';
-import AutocompleteFormItem from 'view/shared/form/items/AutocompleteFormItem';
-import BookingService from 'modules/booking/bookingService';
+import gql from 'graphql-tag';
+import graphqlClient from 'modules/shared/graphql/graphqlClient';
 
-class BookingAutocompleteFormItem extends Component {
-  fetchFn = (value) => {
-    return BookingService.listAutocomplete(value, 10);
-  };
+export default class BookingService {
+  static async update(id, data) {
+    const response = await graphqlClient.mutate({
+      mutation: gql`
+        mutation BOOKING_UPDATE(
+          $id: String!
+          $data: BookingInput!
+        ) {
+          bookingUpdate(id: $id, data: $data) {
+            id
+          }
+        }
+      `,
 
-  mapper = {
-    toAutocomplete(value) {
-      if (!value) {
-        return undefined;
-      }
+      variables: {
+        id,
+        data,
+      },
+    });
 
-      const key = value.id;
-      let label = value.label;
+    return response.data.bookingUpdate;
+  }
 
-      if (value['id']) {
-        label = value['id'];
-      }
+  static async destroyAll(ids) {
+    const response = await graphqlClient.mutate({
+      mutation: gql`
+        mutation BOOKING_DESTROY($ids: [String!]!) {
+          bookingDestroy(ids: $ids)
+        }
+      `,
 
-      return {
-        key,
-        label,
-      };
-    },
+      variables: {
+        ids,
+      },
+    });
 
-    toValue(value) {
-      if (!value) {
-        return undefined;
-      }
+    return response.data.bookingDestroy;
+  }
 
-      return {
-        id: value.key,
-        label: value.label,
-      };
-    },
-  };
+  static async create(data) {
+    const response = await graphqlClient.mutate({
+      mutation: gql`
+        mutation BOOKING_CREATE($data: BookingInput!) {
+          bookingCreate(data: $data) {
+            id
+          }
+        }
+      `,
 
-  render() {
-    return (
-      <AutocompleteFormItem
-        {...this.props}
-        fetchFn={this.fetchFn}
-        mapper={this.mapper}
-      />
-    );
+      variables: {
+        data,
+      },
+    });
+
+    return response.data.bookingCreate;
+  }
+
+  static async import(values, importHash) {
+    const response = await graphqlClient.mutate({
+      mutation: gql`
+        mutation BOOKING_IMPORT(
+          $data: BookingInput!
+          $importHash: String!
+        ) {
+          bookingImport(
+            data: $data
+            importHash: $importHash
+          )
+        }
+      `,
+
+      variables: {
+        data: values,
+        importHash,
+      },
+    });
+
+    return response.data.bookingImport;
+  }
+
+  static async find(id) {
+    const response = await graphqlClient.query({
+      query: gql`
+        query BOOKING_FIND($id: String!) {
+          bookingFind(id: $id) {
+            id
+            owner {
+              id
+              fullName
+              email
+            }
+            tool {
+              id
+              name
+            }
+            arrival
+            departure
+            clientNotes
+            employeeNotes
+            photos {
+              id
+              name
+              sizeInBytes
+              publicUrl
+              privateUrl
+            }
+            status
+            cancellationNotes
+            fee
+            receipt {
+              id
+              name
+              sizeInBytes
+              publicUrl
+              privateUrl
+            }
+            createdAt
+            updatedAt
+          }
+        }
+      `,
+
+      variables: {
+        id,
+      },
+    });
+
+    return response.data.bookingFind;
+  }
+
+  static async list(filter, orderBy, limit, offset) {
+    const response = await graphqlClient.query({
+      query: gql`
+        query BOOKING_LIST(
+          $filter: BookingFilterInput
+          $orderBy: BookingOrderByEnum
+          $limit: Int
+          $offset: Int
+        ) {
+          bookingList(
+            filter: $filter
+            orderBy: $orderBy
+            limit: $limit
+            offset: $offset
+          ) {
+            count
+            rows {
+              id
+              owner {
+                id
+                fullName
+                email
+              }
+              tool {
+                id
+                name
+              }
+              arrival
+              departure
+              clientNotes
+              employeeNotes
+              status
+              cancellationNotes
+              fee
+              receipt {
+                id
+                name
+                sizeInBytes
+                publicUrl
+                privateUrl
+              }
+              updatedAt
+              createdAt
+            }
+          }
+        }
+      `,
+
+      variables: {
+        filter,
+        orderBy,
+        limit,
+        offset,
+      },
+    });
+
+    return response.data.bookingList;
+  }
+
+  static async listAutocomplete(query, owner, limit) {
+    const response = await graphqlClient.query({
+      query: gql`
+        query BOOKING_AUTOCOMPLETE(
+          $query: String
+          $owner: String
+          $limit: Int
+        ) {
+          bookingAutocomplete(
+            query: $query
+            owner: $owner
+            limit: $limit
+          ) {
+            id
+            label
+          }
+        }
+      `,
+
+      variables: {
+        query,
+        limit,
+      },
+    });
+
+    return response.data.bookingAutocomplete;
   }
 }
-
-export default BookingAutocompleteFormItem;

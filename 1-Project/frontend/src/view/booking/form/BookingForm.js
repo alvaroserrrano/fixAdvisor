@@ -20,6 +20,7 @@ import DatePickerFormItem from 'view/shared/form/items/DatePickerFormItem';
 import ImagesFormItem from 'view/shared/form/items/ImagesFormItem';
 import FilesFormItem from 'view/shared/form/items/FilesFormItem';
 import ToolAutocompleteFormItem from 'view/tool/autocomplete/ToolAutocompleteFormItem';
+import authSelectors from 'modules/auth/authSelectors';
 
 const { fields } = model;
 
@@ -48,6 +49,11 @@ class BookingForm extends Component {
     }
   }
 
+  isOwnerEnabled = () => {
+    const { isToolOwner } = this.props;
+    return !isToolOwner;
+  };
+
   isEditing = () => {
     const { match } = this.props;
     return !!match.params.id;
@@ -71,7 +77,13 @@ class BookingForm extends Component {
       return this.schema.initialValues(record);
     }
 
-    return this.schema.initialValues();
+    const initialValues = {};
+
+    if (this.props.isToolOwner) {
+      initialValues.owner = this.props.currentUser;
+    }
+
+    return this.schema.initialValues(initialValues);
   };
 
   renderForm() {
@@ -93,15 +105,22 @@ class BookingForm extends Component {
                   />
                 )}
 
-                <UserAutocompleteFormItem
-                  name={fields.owner.name}
-                  label={fields.owner.label}
-                  required={fields.owner.required}
-                />
+                {this.isOwnerEnabled() && (
+                  <UserAutocompleteFormItem
+                    name={fields.owner.name}
+                    label={fields.owner.label}
+                    required={fields.owner.required}
+                  />
+                )}
                 <ToolAutocompleteFormItem
                   name={fields.tool.name}
                   label={fields.tool.label}
                   required={fields.tool.required}
+                  owner={
+                    form.values.owner
+                      ? form.values.owner.id
+                      : null
+                  }
                 />
                 <DatePickerFormItem
                   name={fields.arrival.name}
@@ -219,6 +238,10 @@ function select(state) {
     findLoading: selectors.selectFindLoading(state),
     saveLoading: selectors.selectSaveLoading(state),
     record: selectors.selectRecord(state),
+    currentUser: authSelectors.selectCurrentUser(state),
+    isToolOwner: authSelectors.selectCurrentUserIsToolOwner(
+      state,
+    ),
   };
 }
 

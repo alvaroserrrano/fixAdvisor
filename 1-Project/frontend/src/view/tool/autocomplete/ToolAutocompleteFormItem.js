@@ -4,7 +4,8 @@ import ToolService from 'modules/tool/toolService';
 
 class ToolAutocompleteFormItem extends Component {
   fetchFn = (value) => {
-    return ToolService.listAutocomplete(value, 10);
+    const { owner } = this.props;
+    return ToolService.listAutocomplete(value, owner, 10);
   };
 
   mapper = {

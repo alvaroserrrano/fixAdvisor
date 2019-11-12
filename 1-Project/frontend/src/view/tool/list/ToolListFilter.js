@@ -15,6 +15,7 @@ import InputFormItem from 'view/shared/form/items/InputFormItem';
 import DatePickerRangeFormItem from 'view/shared/form/items/DatePickerRangeFormItem';
 import UserAutocompleteFormItem from 'view/iam/autocomplete/UserAutocompleteFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
+import authSelectors from 'modules/auth/authSelectors';
 
 const { fields } = model;
 
@@ -23,6 +24,7 @@ const schema = new FormFilterSchema([
   fields.owner,
   fields.name,
   fields.type,
+
   fields.size,
   fields.createdAtRange,
 ]);
@@ -65,28 +67,15 @@ class ToolListFilter extends Component {
             return (
               <Form onSubmit={form.handleSubmit}>
                 <Row gutter={24}>
-                  <Col md={24} lg={12}>
-                    <InputFormItem
-                      name={fields.id.name}
-                      label={fields.id.label}
-                      layout={formItemLayout}
-                    />
-                  </Col>
-                  <Col md={24} lg={12}>
-                    <DatePickerRangeFormItem
-                      name={fields.createdAtRange.name}
-                      label={fields.createdAtRange.label}
-                      layout={formItemLayout}
-                      showTime
-                    />
-                  </Col>
-                  <Col md={24} lg={12}>
-                    <UserAutocompleteFormItem
-                      name={fields.owner.name}
-                      label={fields.owner.label}
-                      layout={formItemLayout}
-                    />
-                  </Col>
+                  {!this.props.isToolOwner && (
+                    <Col md={24} lg={12}>
+                      <UserAutocompleteFormItem
+                        name={fields.owner.name}
+                        label={fields.owner.label}
+                        layout={formItemLayout}
+                      />
+                    </Col>
+                  )}
                   <Col md={24} lg={12}>
                     <InputFormItem
                       name={fields.name.name}
@@ -153,6 +142,9 @@ class ToolListFilter extends Component {
 function select(state) {
   return {
     filter: selectors.selectFilter(state),
+    isToolOwner: authSelectors.selectCurrentUserIsToolOwner(
+      state,
+    ),
   };
 }
 

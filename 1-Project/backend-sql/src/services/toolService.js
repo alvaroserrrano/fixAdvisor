@@ -1,6 +1,8 @@
 const ToolRepository = require('../database/repositories/toolRepository');
 const ValidationError = require('../errors/validationError');
+const ForbiddenError = require('../errors/forbiddenError');
 const AbstractRepository = require('../database/repositories/abstractRepository');
+const UserRoleChecker = require('./iam/userRoleChecker');
 
 module.exports = class ToolService {
   constructor({ currentUser, language }) {
@@ -10,6 +12,8 @@ module.exports = class ToolService {
   }
 
   async create(data) {
+    await this._validateCreate(data);
+
     const transaction = await AbstractRepository.createTransaction();
 
     try {
@@ -31,7 +35,17 @@ module.exports = class ToolService {
     }
   }
 
+  async _validateCreate(data) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
+      if (data.owner !== this.currentUser.id) {
+        throw new ForbiddenError(this.language);
+      }
+    }
+  }
+
   async update(id, data) {
+    await this._validateUpdate(id, data);
+
     const transaction = await AbstractRepository.createTransaction();
 
     try {
@@ -57,11 +71,24 @@ module.exports = class ToolService {
     }
   }
 
+  async _validateUpdate(id, data) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
+      data.owner = this.currentUser.id;
+      await this._validateIsSameOwner(id);
+    }
+  }
+
+  async _validateIsSameOwner(id) {
+    await this.findById(id);
+  }
+
   async destroyAll(ids) {
     const transaction = await AbstractRepository.createTransaction();
 
     try {
       for (const id of ids) {
+        await this._validateDestroy(id);
+
         await this.repository.destroy(id, {
           transaction,
           currentUser: this.currentUser,
@@ -79,18 +106,54 @@ module.exports = class ToolService {
     }
   }
 
-  async findById(id) {
-    return this.repository.findById(id);
+  async _validateDestroy(id) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
+      await this._validateIsSameOwner(id);
+    }
   }
 
-  async findAllAutocomplete(search, limit) {
+  async findById(id) {
+    const record = await this.repository.findById(id);
+    await this._validateFindById(record);
+    return record;
+  }
+
+  async _validateFindById(record) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
+      if (
+        record.owner &&
+        record.owner.id !== this.currentUser.id
+      ) {
+        throw new ForbiddenError(this.language);
+      }
+    }
+  }
+
+  async findAllAutocomplete(filter, limit) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
+      if (
+        !filter ||
+        !filter.owner ||
+        filter.owner !== this.currentUser.id
+      ) {
+        throw new ForbiddenError(this.language);
+      }
+    }
+
     return this.repository.findAllAutocomplete(
-      search,
+      filter,
       limit,
     );
   }
 
   async findAndCountAll(args) {
+    if (UserRoleChecker.isToolOwner(this.currentUser)) {
+      args.filter = {
+        ...args.filter,
+        owner: this.currentUser.id,
+      };
+    }
+
     return this.repository.findAndCountAll(args);
   }
 

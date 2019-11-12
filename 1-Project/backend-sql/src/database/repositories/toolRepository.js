@@ -112,9 +112,24 @@ class ToolRepository extends AbstractEntityRepository {
       models.Sequelize,
     );
 
-    if (query) {
-      filter.appendId('id', query);
-      filter.appendIlike('name', query, this.modelName);
+    if (filter && filter.query) {
+      sequelizeFilter.appendId('id', filter.query);
+      sequelizeFilter.appendIlike(
+        'name',
+        filter.query,
+        this.modelName,
+      );
+    }
+
+    let where = sequelizeFilter.getWhere();
+
+    if (filter && filter.owner) {
+      where = {
+        ...where,
+        [models.Sequelize.Op.and]: {
+          ownerId: filter.owner,
+        },
+      };
     }
 
     const records = await models[this.modelName].findAll({

@@ -17,6 +17,7 @@ import InputRangeFormItem from 'view/shared/form/items/InputRangeFormItem';
 import UserAutocompleteFormItem from 'view/iam/autocomplete/UserAutocompleteFormItem';
 import SelectFormItem from 'view/shared/form/items/SelectFormItem';
 import ToolAutocompleteFormItem from 'view/tool/autocomplete/ToolAutocompleteFormItem';
+import authSelectors from 'modules/auth/authSelectors';
 
 const { fields } = model;
 
@@ -57,7 +58,11 @@ class BookingListFilter extends Component {
   };
 
   render() {
-    const { loading } = this.props;
+    const {
+      loading,
+      currentUser,
+      isToolOwner,
+    } = this.props;
 
     return (
       <FilterWrapper>
@@ -84,18 +89,23 @@ class BookingListFilter extends Component {
                       showTime
                     />
                   </Col>
-                  <Col md={24} lg={12}>
-                    <UserAutocompleteFormItem
-                      name={fields.owner.name}
-                      label={fields.owner.label}
-                      layout={formItemLayout}
-                    />
-                  </Col>
+                  {!isToolOwner && (
+                    <Col md={24} lg={12}>
+                      <UserAutocompleteFormItem
+                        name={fields.owner.name}
+                        label={fields.owner.label}
+                        layout={formItemLayout}
+                      />
+                    </Col>
+                  )}
                   <Col md={24} lg={12}>
                     <ToolAutocompleteFormItem
                       name={fields.tool.name}
                       label={fields.tool.label}
                       layout={formItemLayout}
+                      owner={
+                        isToolOwner ? currentUser.id : null
+                      }
                     />
                   </Col>
                   <Col md={24} lg={12}>
@@ -166,6 +176,10 @@ class BookingListFilter extends Component {
 function select(state) {
   return {
     filter: selectors.selectFilter(state),
+    currentUser: authSelectors.selectCurrentUser(state),
+    isToolOwner: authSelectors.selectCurrentUserIsToolOwner(
+      state,
+    ),
   };
 }
 

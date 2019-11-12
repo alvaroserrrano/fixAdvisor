@@ -119,7 +119,8 @@ const en = {
       fields: {
         id: 'id',
         manager: 'manager',
-        tool: 'tool',
+        owner: 'Owner',
+        tool: 'Tool',
         arrivalRange: 'Arrival',
         arrival: 'Arrival',
         departureRange: 'Departure',

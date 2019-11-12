@@ -11,7 +11,7 @@ class Permissions {
       },
       iamCreate: {
         id: 'iamCreate',
-        allowedRoles: [roles.manager],
+        allowedRoles: [roles.manager, roles.employee],
       },
       iamImport: {
         id: 'iamImport',
@@ -61,7 +61,11 @@ class Permissions {
       },
       toolDestroy: {
         id: 'toolDestroy',
-        allowedRoles: [roles.manager],
+        allowedRoles: [
+          roles.manager,
+          roles.employee,
+          roles.toolOwner,
+        ],
         allowedStorageFolders: ['tool'],
       },
       toolRead: {

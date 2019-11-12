@@ -9,6 +9,7 @@ const initialData = {
   loadingUpdateProfile: false,
   loading: false,
   errorMessage: null,
+  redirectToNewTool: false,
 };
 
 export default (state = initialData, { type, payload }) => {
@@ -42,6 +43,7 @@ export default (state = initialData, { type, payload }) => {
       currentUser: payload.currentUser || null,
       errorMessage: null,
       loading: false,
+      redirectToNewTool: false,
     };
   }
 
@@ -125,6 +127,7 @@ export default (state = initialData, { type, payload }) => {
         payload.authenticationUser || null,
       currentUser: payload.currentUser || null,
       loadingInit: false,
+      redirectToNewTool: !!payload.redirectToNewTool,
     };
   }
 
@@ -134,6 +137,7 @@ export default (state = initialData, { type, payload }) => {
       authenticationUser: null,
       currentUser: null,
       loadingInit: false,
+      redirectToNewTool: false,
     };
   }
 

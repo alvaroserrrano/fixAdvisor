@@ -6,6 +6,7 @@ import {
   Route,
   Switch,
   withRouter,
+  Redirect,
 } from 'react-router-dom';
 import EmailUnverifiedRoute from 'view/shared/routes/EmailUnverifiedRoute';
 import EmptyPermissionsRoute from 'view/shared/routes/EmptyPermissionsRoute';
@@ -43,6 +44,14 @@ class RoutesComponent extends Component {
 
     return (
       <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <Redirect to="/tool/new/"></Redirect>
+          )}
+        ></Route>
+
         {routes.publicRoutes.map((route) => (
           <PublicRoute
             key={route.path}

@@ -175,4 +175,9 @@ export default class ToolService {
 
     return response.data.toolAutocomplete;
   }
+
+  static async exists() {
+    const { count } = await this.list(null, null, 1, null);
+    return count > 0;
+  }
 }

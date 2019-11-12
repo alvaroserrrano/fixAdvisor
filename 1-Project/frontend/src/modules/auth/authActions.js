@@ -4,6 +4,7 @@ import Errors from 'modules/shared/error/errors';
 import Message from 'view/shared/message';
 import { i18n } from 'i18n';
 import { getHistory } from 'modules/store';
+import ToolService from 'modules/tool/toolService';
 
 const prefix = 'AUTH';
 
@@ -80,6 +81,7 @@ const actions = {
 
       let authenticationUser = null;
       let currentUser = null;
+      let redirectToNewTool = false;
 
       const credentials = await service.signinWithSocial(
         provider,
@@ -91,6 +93,7 @@ const actions = {
         currentUser = await service.fetchMe();
         currentUser.emailVerified =
           authenticationUser.emailVerified;
+        redirectToNewTool = !(await ToolService.exists());
       }
 
       // in background
@@ -126,6 +129,7 @@ const actions = {
       const currentUser = await service.fetchMe();
       currentUser.emailVerified =
         authenticationUser.emailVerified;
+      const redirectToNewTool = !(await ToolService.exists());
 
       // in background
       service.reauthenticateWithStorageToken();
@@ -135,6 +139,7 @@ const actions = {
         payload: {
           currentUser,
           authenticationUser,
+          redirectToNewTool,
         },
       });
     } catch (error) {
@@ -161,6 +166,7 @@ const actions = {
 
       let authenticationUser = null;
       let currentUser = null;
+      let redirectToNewTool = null;
 
       const credentials = await service.signinWithEmailAndPassword(
         email,
@@ -173,6 +179,7 @@ const actions = {
         currentUser = await service.fetchMe();
         currentUser.emailVerified =
           authenticationUser.emailVerified;
+        redirectToNewTool = !(await ToolService.exists());
       }
 
       // in background
@@ -183,6 +190,7 @@ const actions = {
         payload: {
           currentUser,
           authenticationUser,
+          redirectToNewTool,
         },
       });
     } catch (error) {
@@ -225,6 +233,7 @@ const actions = {
   ) => {
     try {
       let currentUser = null;
+      let redirectToNewTool = false;
 
       if (authenticationUser) {
         currentUser = await service.fetchMe();
@@ -234,6 +243,7 @@ const actions = {
 
         currentUser.emailVerified =
           authenticationUser.emailVerified;
+        redirectToNewTool = !(await ToolService.exists());
       }
 
       dispatch({
@@ -241,6 +251,7 @@ const actions = {
         payload: {
           currentUser,
           authenticationUser: authenticationUser,
+          redirectToNewTool,
         },
       });
     } catch (error) {

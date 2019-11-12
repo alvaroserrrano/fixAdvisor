@@ -28,8 +28,38 @@ const fields = {
     'type',
     label('type'),
     [
-      { id: 'cat', label: enumeratorLabel('type', 'cat') },
-      { id: 'dog', label: enumeratorLabel('type', 'dog') },
+      {
+        id: 'mechanical',
+        label: enumeratorLabel('type', 'mechanical'),
+      },
+      {
+        id: 'electrician',
+        label: enumeratorLabel('type', 'electrician'),
+      },
+      {
+        id: 'plumber',
+        label: enumeratorLabel('type', 'plumber'),
+      },
+      {
+        id: 'IT',
+        label: enumeratorLabel('type', 'IT'),
+      },
+      {
+        id: 'gardener',
+        label: enumeratorLabel('type', 'gardener'),
+      },
+      {
+        id: 'cable',
+        label: enumeratorLabel('type', 'cable'),
+      },
+      {
+        id: 'painter',
+        label: enumeratorLabel('type', 'painter'),
+      },
+      {
+        id: 'other',
+        label: enumeratorLabel('type', 'other'),
+      },
     ],
     {
       required: true,

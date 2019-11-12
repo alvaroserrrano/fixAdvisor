@@ -27,9 +27,9 @@ const en = {
 
   entities: {
     tool: {
-      name: 'tool',
-      label: 'label',
-      menu: 'menu',
+      name: 'Tool',
+      label: 'Label',
+      menu: 'Menu',
       exporterFileName: 'tool_export',
       list: {
         menu: 'menu',
@@ -52,10 +52,10 @@ const en = {
       },
       fields: {
         id: 'id',
-        owner: 'owner',
-        name: 'name',
-        type: 'type',
-        size: 'size',
+        owner: 'Owner',
+        name: 'Name',
+        type: 'Type',
+        size: 'Size',
         bookings: 'bookings',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
@@ -63,8 +63,14 @@ const en = {
       },
       enumerators: {
         type: {
-          cat: 'Cat',
-          dog: 'Dog',
+          mechanical: 'Mechanical Engineer',
+          IT: 'IT Support Technician',
+          plumber: 'Plumber',
+          gardener: 'Gardener',
+          cable: 'Cable specialist',
+          electrician: 'Electrician',
+          painter: 'Painter',
+          other: 'Other',
         },
         size: {
           small: 'Small',
@@ -112,7 +118,7 @@ const en = {
       },
       fields: {
         id: 'id',
-        owner: 'owner',
+        manager: 'manager',
         tool: 'tool',
         arrivalRange: 'Arrival',
         arrival: 'Arrival',
@@ -187,49 +193,17 @@ const en = {
   },
 
   roles: {
-    owner: {
-      label: 'Owner',
+    manager: {
+      label: 'Manager',
       description: 'Full access to all resources',
     },
-    editor: {
-      label: 'Editor',
-      description: 'Edit access to all resources',
+    employee: {
+      label: 'Employee',
+      description: 'Employee access',
     },
-    viewer: {
-      label: 'Viewer',
-      description: 'View access to all resources',
-    },
-    auditLogViewer: {
-      label: 'Audit Log Viewer',
-      description: 'Access to view audit logs',
-    },
-    iamSecurityReviewer: {
-      label: 'Security Reviewer',
-      description: `Full access to manage users roles`,
-    },
-    entityEditor: {
-      label: 'Entity Editor',
-      description: 'Edit access to all entities',
-    },
-    entityViewer: {
-      label: 'Entity Viewer',
-      description: 'View access to all entities',
-    },
-    toolEditor: {
-      label: 'tool Editor',
-      description: 'Edit access to tool',
-    },
-    toolViewer: {
-      label: 'tool Viewer',
-      description: 'View access to tool',
-    },
-    bookingEditor: {
-      label: 'Booking Editor',
-      description: 'Edit access to Booking',
-    },
-    bookingViewer: {
-      label: 'Booking Viewer',
-      description: 'View access to Booking',
+    toolOwner: {
+      label: 'Tool owner',
+      description: 'Tool owner access',
     },
   },
 
@@ -282,7 +256,7 @@ const en = {
         'User with this email already exists',
       userNotFound: 'User not found',
       disablingHimself: `You can't disable yourself`,
-      revokingOwnPermission: `You can't revoke your own owner permission`,
+      revokingOwnPermission: `You can't revoke your own manager permission`,
     },
   },
 
@@ -361,34 +335,6 @@ const en = {
   },
   home: {
     menu: 'Home',
-    message: `This page uses fake data for demonstration purposes only. You can edit it at frontend/view/home/HomePage.js.`,
-    charts: {
-      day: 'Day',
-      red: 'Red',
-      green: 'Green',
-      yellow: 'Yellow',
-      grey: 'Grey',
-      blue: 'Blue',
-      sales: 'Sales',
-      visitor: 'Visitors',
-      months: {
-        1: 'January',
-        2: 'February',
-        3: 'March',
-        4: 'April',
-        5: 'May',
-        6: 'June',
-        7: 'July',
-      },
-      eating: 'Eating',
-      drinking: 'Drinking',
-      sleeping: 'Sleeping',
-      designing: 'Designing',
-      coding: 'Coding',
-      cycling: 'Cycling',
-      running: 'Running',
-      customer: 'Customer',
-    },
   },
   errors: {
     backToHome: 'Back to home',

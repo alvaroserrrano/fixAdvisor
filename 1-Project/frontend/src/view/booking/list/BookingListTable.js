@@ -1,4 +1,4 @@
-import { Table, Popconfirm } from 'antd';
+import { Table, Popconfirm, Tag } from 'antd';
 import { i18n } from 'i18n';
 import actions from 'modules/booking/list/bookingListActions';
 import destroyActions from 'modules/booking/destroy/bookingDestroyActions';
@@ -15,6 +15,7 @@ import UserListItem from 'view/iam/list/users/UserListItem';
 import FilesListView from 'view/shared/list/FileListView';
 import ToolListItem from 'view/tool/list/ToolListItem';
 import authSelectors from 'modules/auth/authSelectors';
+import { bookingStatusColor } from 'modules/booking/bookingStatus';
 
 const { fields } = model;
 
@@ -43,7 +44,13 @@ class BookingListTable extends Component {
     }),
     fields.arrival.forTable(),
     fields.departure.forTable(),
-    fields.status.forTable(),
+    fields.status.forTable({
+      render: (value) => (
+        <Tag color={bookingStatusColor(value)}>
+          {fields.status.forView(value)}
+        </Tag>
+      ),
+    }),
     fields.fee.forTable(),
     fields.receipt.forTable({
       render: (value) => <FilesListView value={value} />,
@@ -54,7 +61,7 @@ class BookingListTable extends Component {
       dataIndex: '',
       width: '160px',
       render: (_, record) => (
-        <div className="table-actions">
+        <div className='table-actions'>
           <Link to={`/booking/${record.id}`}>
             {i18n('common.view')}
           </Link>
@@ -96,7 +103,7 @@ class BookingListTable extends Component {
     return (
       <TableWrapper>
         <Table
-          rowKey="id"
+          rowKey='id'
           loading={loading}
           columns={this.columns}
           dataSource={rows}

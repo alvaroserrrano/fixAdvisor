@@ -7,6 +7,9 @@ import UserViewItem from 'view/iam/view/UserViewItem';
 import ImagesViewItem from 'view/shared/view/ImagesViewItem';
 import FilesViewItem from 'view/shared/view/FilesViewItem';
 import ToolViewItem from 'view/tool/view/ToolViewItem';
+import CustomViewItem from 'view/shared/view/CustomViewItem';
+import { bookingStatusColor } from 'modules/booking/bookingStatus';
+import { Tag } from 'antd';
 
 const { fields } = model;
 
@@ -60,9 +63,18 @@ class BookingView extends Component {
           value={fields.photos.forView(record.photos)}
         />
 
-        <TextViewItem
+        <CustomViewItem
           label={fields.status.label}
           value={fields.status.forView(record.status)}
+          render={(value) => {
+            return (
+              <Tag
+                color={bookingStatusColor(record.status)}
+              >
+                {value}
+              </Tag>
+            );
+          }}
         />
 
         <TextViewItem

@@ -120,13 +120,44 @@ class BookingForm extends Component {
   };
 
   statusOptions = () => {
-    const { isToolOwner } = this.props;
+    const {
+      isToolOwner,
+      isManager,
+      isEmployee,
+    } = this.props;
 
     if (isToolOwner) {
       return this.statusOptionsToolOwner();
     }
 
+    if (isEmployee) {
+      return this.statusOptionsEmployee();
+    }
+
+    if (isManager) {
+      return this.statusOptionsManager();
+    }
+  };
+
+  statusOptionsManager = () => {
     return fields.status.options;
+  };
+
+  statusOptionsEmployee = () => {
+    const { record } = this.props;
+    const options = fields.status.options;
+
+    if (!this.isEditing()) {
+      return options;
+    }
+
+    if (record.status === bookingStatus.BOOKED) {
+      return options;
+    }
+
+    return options.filter(
+      (option) => option.id !== bookingStatus.BOOKED,
+    );
   };
 
   statusOptionsToolOwner = () => {
@@ -293,14 +324,14 @@ class BookingForm extends Component {
                 />
 
                 <Form.Item
-                  className="form-buttons"
+                  className='form-buttons'
                   {...tailFormItemLayout}
                 >
                   <Button
                     loading={saveLoading}
-                    type="primary"
-                    htmlType="submit"
-                    icon="save"
+                    type='primary'
+                    htmlType='submit'
+                    icon='save'
                   >
                     {i18n('common.save')}
                   </Button>
@@ -308,7 +339,7 @@ class BookingForm extends Component {
                   <Button
                     disabled={saveLoading}
                     onClick={form.handleReset}
-                    icon="undo"
+                    icon='undo'
                   >
                     {i18n('common.reset')}
                   </Button>
@@ -343,6 +374,9 @@ function select(state) {
     record: selectors.selectRecord(state),
     currentUser: authSelectors.selectCurrentUser(state),
     isToolOwner: authSelectors.selectCurrentUserIsToolOwner(
+      state,
+    ),
+    isEmployee: authSelectors.selectCurrentUserIsEmployee(
       state,
     ),
     isManager: authSelectors.selectCurrentUserIsManager(

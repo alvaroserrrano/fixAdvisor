@@ -53,9 +53,7 @@ module.exports = class BookingService {
   }
 
   async _validateToolAndOwnerMatch(data) {
-    const tool = await this.toolRepository.findById(
-      data.tool,
-    );
+    const tool = await this.toolRepository.findById(data.tool);
 
     if (tool.owner.id !== data.owner) {
       throw new ForbiddenError(this.language);
@@ -112,11 +110,7 @@ module.exports = class BookingService {
     await this._validateToolAndOwnerMatch(data);
   }
 
-  async _validateUpdateForToolOwner(
-    id,
-    data,
-    existingData,
-  ) {
+  async _validateUpdateForToolOwner(id, data, existingData) {
     data.owner = this.currentUser.id;
     await this._validateIsSameOwner(id);
 
@@ -145,6 +139,10 @@ module.exports = class BookingService {
     }
 
     if (existingData.status !== bookingStatus.BOOKED) {
+      if (data.status === bookingStatus.BOOKED) {
+        throw new ForbiddenError(this.language);
+      }
+
       if (data.owner !== existingData.owner.id) {
         throw new ForbiddenError(this.language);
       }

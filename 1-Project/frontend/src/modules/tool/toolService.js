@@ -94,6 +94,9 @@ export default class ToolService {
             size
             bookings {
               id
+              arrival
+              departure
+              status
             }
             createdAt
             updatedAt

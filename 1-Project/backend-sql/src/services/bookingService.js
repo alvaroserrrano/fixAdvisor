@@ -1,12 +1,15 @@
 const BookingRepository = require('../database/repositories/bookingRepository');
+const ToolRepository = require('../database/repositories/toolRepository');
 const ValidationError = require('../errors/validationError');
 const AbstractRepository = require('../database/repositories/abstractRepository');
 const UserRoleChecker = require('./iam/userRoleChecker');
 const ForbiddenError = require('../errors/forbiddenError');
+const bookingStatus = require('../enumerators/bookingStatus');
 
 module.exports = class BookingService {
   constructor({ currentUser, language }) {
     this.repository = new BookingRepository();
+    this.toolRepository = new ToolRepository();
     this.currentUser = currentUser;
     this.language = language;
   }
@@ -40,6 +43,22 @@ module.exports = class BookingService {
       if (data.owner !== this.currentUser.id) {
         throw new ForbiddenError(this.language);
       }
+
+      if (data.status !== bookingStatus.BOOKED) {
+        throw new ForbiddenError(this.language);
+      }
+    }
+
+    await this._validateToolAndOwnerMatch(data);
+  }
+
+  async _validateToolAndOwnerMatch(data) {
+    const tool = await this.toolRepository.findById(
+      data.tool,
+    );
+
+    if (tool.owner.id !== data.owner) {
+      throw new ForbiddenError(this.language);
     }
   }
 
@@ -72,9 +91,67 @@ module.exports = class BookingService {
   }
 
   async _validateUpdate(id, data) {
+    const existingData = await this.findById(id);
+
     if (UserRoleChecker.isToolOwner(this.currentUser)) {
-      data.owner = this.currentUser.id;
-      await this._validateIsSameOwner(id);
+      await this._validateUpdateForToolOwner(
+        id,
+        data,
+        existingData,
+      );
+    }
+
+    if (UserRoleChecker.isEmployee(this.currentUser)) {
+      await this._validateUpdateForEmployee(
+        id,
+        data,
+        existingData,
+      );
+    }
+
+    await this._validateToolAndOwnerMatch(data);
+  }
+
+  async _validateUpdateForToolOwner(
+    id,
+    data,
+    existingData,
+  ) {
+    data.owner = this.currentUser.id;
+    await this._validateIsSameOwner(id);
+
+    if (existingData.status !== bookingStatus.BOOKED) {
+      throw new ForbiddenError(this.language);
+    }
+
+    if (
+      ![
+        bookingStatus.CANCELLED,
+        bookingStatus.BOOKED,
+      ].includes(data.status)
+    ) {
+      throw new ForbiddenError(this.language);
+    }
+  }
+
+  async _validateUpdateForEmployee(id, data, existingData) {
+    if (
+      [
+        bookingStatus.CANCELLED,
+        bookingStatus.COMPLETED,
+      ].includes(existingData.status)
+    ) {
+      throw new ForbiddenError(this.language);
+    }
+
+    if (existingData.status !== bookingStatus.BOOKED) {
+      if (data.owner !== existingData.owner.id) {
+        throw new ForbiddenError(this.language);
+      }
+
+      if (data.tool !== existingData.tool.id) {
+        throw new ForbiddenError(this.language);
+      }
     }
   }
 

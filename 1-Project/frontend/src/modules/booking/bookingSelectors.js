@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import authSelectors from 'modules/auth/authSelectors';
 import PermissionChecker from 'modules/auth/permissionChecker';
 import Permissions from 'security/permissions';
+import bookingStatus from 'modules/booking/bookingStatus';
 
 const selectPermissionToRead = createSelector(
   [authSelectors.selectCurrentUser],
@@ -17,6 +18,38 @@ const selectPermissionToEdit = createSelector(
     new PermissionChecker(currentUser).match(
       Permissions.values.bookingEdit,
     ),
+);
+
+const selectPermissionToEditRecord = createSelector(
+  [
+    selectPermissionToEdit,
+    authSelectors.selectCurrentUserIsToolOwner,
+    authSelectors.selectCurrentUserIsEmployee,
+  ],
+  (hasPermissionToEdit, isToolOwner, isEmployee) => {
+    return (record) => {
+      if (!hasPermissionToEdit) {
+        return false;
+      }
+
+      if (!record) {
+        return false;
+      }
+
+      if (isToolOwner) {
+        return record.status === bookingStatus.BOOKED;
+      }
+
+      if (isEmployee) {
+        return ![
+          bookingStatus.COMPLETED,
+          bookingStatus.CANCELLED,
+        ].includes(record.status);
+      }
+
+      return true;
+    };
+  },
 );
 
 const selectPermissionToCreate = createSelector(
@@ -49,6 +82,7 @@ const selectors = {
   selectPermissionToCreate,
   selectPermissionToDestroy,
   selectPermissionToImport,
+  selectPermissionToEditRecord,
 };
 
 export default selectors;

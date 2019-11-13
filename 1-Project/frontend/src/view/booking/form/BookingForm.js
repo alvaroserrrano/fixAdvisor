@@ -21,6 +21,9 @@ import ImagesFormItem from 'view/shared/form/items/ImagesFormItem';
 import FilesFormItem from 'view/shared/form/items/FilesFormItem';
 import ToolAutocompleteFormItem from 'view/tool/autocomplete/ToolAutocompleteFormItem';
 import authSelectors from 'modules/auth/authSelectors';
+import bookingStatus from 'modules/booking/bookingStatus';
+import UserViewItem from 'view/iam/view/UserViewItem';
+import ToolViewItem from 'view/tool/view/ToolViewItem';
 
 const { fields } = model;
 
@@ -50,13 +53,89 @@ class BookingForm extends Component {
   }
 
   isOwnerEnabled = () => {
-    const { isToolOwner } = this.props;
-    return !isToolOwner;
+    const { isToolOwner, isManager, record } = this.props;
+
+    if (isManager) {
+      return true;
+    }
+
+    if (isToolOwner) {
+      return false;
+    }
+
+    if (!this.isEditing()) {
+      return true;
+    }
+
+    if (!record || !record.status) {
+      return false;
+    }
+
+    return record.status === bookingStatus.BOOKED;
+  };
+
+  isOwnerVisible = () => {
+    return !this.isOwnerEnabled() && this.props.record;
+  };
+
+  isToolEnabled = (form) => {
+    if (!form.values.owner) {
+      return false;
+    }
+
+    if (!this.isEditing()) {
+      return true;
+    }
+
+    const { record, isManager } = this.props;
+
+    if (isManager) {
+      return true;
+    }
+
+    if (!record || !record.status) {
+      return false;
+    }
+
+    return record.status === bookingStatus.BOOKED;
+  };
+
+  isToolVisible = (form) => {
+    return !this.isToolEnabled(form) && form.values.tool;
   };
 
   isEditing = () => {
     const { match } = this.props;
     return !!match.params.id;
+  };
+
+  isStatusEnabled = () => {
+    const { isToolOwner } = this.props;
+
+    if (this.isEditing()) {
+      return true;
+    }
+
+    return !isToolOwner;
+  };
+
+  statusOptions = () => {
+    const { isToolOwner } = this.props;
+
+    if (isToolOwner) {
+      return this.statusOptionsToolOwner();
+    }
+
+    return fields.status.options;
+  };
+
+  statusOptionsToolOwner = () => {
+    return fields.status.options.filter((option) => {
+      return [
+        bookingStatus.BOOKED,
+        bookingStatus.CANCELLED,
+      ].includes(option.id);
+    });
   };
 
   handleSubmit = (values) => {
@@ -77,7 +156,9 @@ class BookingForm extends Component {
       return this.schema.initialValues(record);
     }
 
-    const initialValues = {};
+    const initialValues = {
+      status: bookingStatus.BOOKED,
+    };
 
     if (this.props.isToolOwner) {
       initialValues.owner = this.props.currentUser;
@@ -87,7 +168,7 @@ class BookingForm extends Component {
   };
 
   renderForm() {
-    const { saveLoading } = this.props;
+    const { saveLoading, record } = this.props;
 
     return (
       <FormWrapper>
@@ -112,16 +193,36 @@ class BookingForm extends Component {
                     required={fields.owner.required}
                   />
                 )}
-                <ToolAutocompleteFormItem
-                  name={fields.tool.name}
-                  label={fields.tool.label}
-                  required={fields.tool.required}
-                  owner={
-                    form.values.owner
-                      ? form.values.owner.id
-                      : null
-                  }
-                />
+
+                {this.isOwnerVisible() && (
+                  <UserViewItem
+                    label={fields.owner.label}
+                    value={fields.owner.forView(
+                      record.owner,
+                    )}
+                  />
+                )}
+
+                {this.isToolEnabled(form) && (
+                  <ToolAutocompleteFormItem
+                    name={fields.tool.name}
+                    label={fields.tool.label}
+                    required={fields.tool.required}
+                    owner={
+                      form.values.owner
+                        ? form.values.owner.id
+                        : null
+                    }
+                  />
+                )}
+
+                {this.isToolVisible(form) && (
+                  <ToolViewItem
+                    label={fields.tool.label}
+                    value={fields.tool.forView(record.tool)}
+                  />
+                )}
+
                 <DatePickerFormItem
                   name={fields.arrival.name}
                   label={fields.arrival.label}
@@ -154,17 +255,19 @@ class BookingForm extends Component {
                   }}
                   max={fields.photos.max}
                 />
-                <SelectFormItem
-                  name={fields.status.name}
-                  label={fields.status.label}
-                  options={fields.status.options.map(
-                    (item) => ({
-                      value: item.id,
-                      label: item.label,
-                    }),
-                  )}
-                  required={fields.status.required}
-                />
+                {this.isStatusEnabled() && (
+                  <SelectFormItem
+                    name={fields.status.name}
+                    label={fields.status.label}
+                    options={this.statusOptions().map(
+                      (item) => ({
+                        value: item.id,
+                        label: item.label,
+                      }),
+                    )}
+                    required={fields.status.required}
+                  />
+                )}
                 <TextAreaFormItem
                   name={fields.cancellationNotes.name}
                   label={fields.cancellationNotes.label}
@@ -240,6 +343,9 @@ function select(state) {
     record: selectors.selectRecord(state),
     currentUser: authSelectors.selectCurrentUser(state),
     isToolOwner: authSelectors.selectCurrentUserIsToolOwner(
+      state,
+    ),
+    isManager: authSelectors.selectCurrentUserIsManager(
       state,
     ),
   };

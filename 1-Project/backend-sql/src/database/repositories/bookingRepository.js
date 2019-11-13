@@ -155,6 +155,16 @@ class BookingRepository extends AbstractEntityRepository {
       label: record.id,
     }));
   }
+
+  async existsForTool(toolId) {
+    const count = await models.booking.count({
+      where: {
+        toolId,
+      },
+    });
+
+    return count > 0;
+  }
 }
 
 module.exports = BookingRepository;

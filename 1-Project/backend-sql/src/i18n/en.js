@@ -3,6 +3,14 @@ const en = {
     title: '',
   },
 
+  entities: {
+    tool: {
+      validation: {
+        bookingExists: `There is a booking for this tool, so it can't be deleted`,
+      },
+    },
+  },
+
   auth: {
     passwordReset: {
       error: `Email not recognized`,

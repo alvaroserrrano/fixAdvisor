@@ -3,10 +3,12 @@ const ValidationError = require('../errors/validationError');
 const ForbiddenError = require('../errors/forbiddenError');
 const AbstractRepository = require('../database/repositories/abstractRepository');
 const UserRoleChecker = require('./iam/userRoleChecker');
+const BookingRepository = require('../database/repositories/bookingRepository');
 
 module.exports = class ToolService {
   constructor({ currentUser, language }) {
     this.repository = new ToolRepository();
+    this.bookingRepository = new BookingRepository();
     this.currentUser = currentUser;
     this.language = language;
   }
@@ -109,6 +111,17 @@ module.exports = class ToolService {
   async _validateDestroy(id) {
     if (UserRoleChecker.isToolOwner(this.currentUser)) {
       await this._validateIsSameOwner(id);
+    }
+
+    const existsBookingForTool = await this.bookingRepository.existsForTool(
+      id,
+    );
+
+    if (existsBookingForTool) {
+      throw new ValidationError(
+        this.language,
+        'entities.tool.validation.bookingExists',
+      );
     }
   }
 

@@ -25,11 +25,10 @@ const schema = new FormFilterSchema([
   fields.id,
   fields.owner,
   fields.tool,
-  fields.arrivalRange,
-  fields.departureRange,
   fields.status,
   fields.feeRange,
   fields.createdAtRange,
+  fields.period,
 ]);
 
 class BookingListFilter extends Component {
@@ -110,16 +109,8 @@ class BookingListFilter extends Component {
                   </Col>
                   <Col md={24} lg={12}>
                     <DatePickerRangeFormItem
-                      name={fields.arrivalRange.name}
-                      label={fields.arrivalRange.label}
-                      layout={formItemLayout}
-                      showTime
-                    />
-                  </Col>
-                  <Col md={24} lg={12}>
-                    <DatePickerRangeFormItem
-                      name={fields.departureRange.name}
-                      label={fields.departureRange.label}
+                      name={fields.period.name}
+                      label={fields.period.label}
                       layout={formItemLayout}
                       showTime
                     />
@@ -146,19 +137,19 @@ class BookingListFilter extends Component {
                   </Col>
                 </Row>
                 <Row>
-                  <Col className="filter-buttons" span={24}>
+                  <Col className='filter-buttons' span={24}>
                     <Button
                       loading={loading}
-                      icon="search"
-                      type="primary"
-                      htmlType="submit"
+                      icon='search'
+                      type='primary'
+                      htmlType='submit'
                     >
                       {i18n('common.search')}
                     </Button>
                     <Button
                       loading={loading}
                       onClick={() => this.handleReset(form)}
-                      icon="undo"
+                      icon='undo'
                     >
                       {i18n('common.reset')}
                     </Button>

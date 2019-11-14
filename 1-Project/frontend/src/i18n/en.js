@@ -153,6 +153,8 @@ const en = {
       },
       validation: {
         periodPast: 'The period must be in the future',
+        periodFull:
+          'Sorry, the Tool Hotel is full at this time',
       },
     },
   },

@@ -31,7 +31,7 @@ class IamUsersTable extends Component {
                 ? record.avatars[0].publicUrl
                 : undefined
             }
-            alt="avatar"
+            alt='avatar'
           />
         );
       },
@@ -65,11 +65,11 @@ class IamUsersTable extends Component {
       dataIndex: '',
       width: '160px',
       render: (_, record) => (
-        <div className="table-actions">
+        <div className='table-actions'>
           <Link to={`/iam/${record.id}`}>
             {i18n('common.view')}
           </Link>
-          {this.props.hasPermissionToEdit && (
+          {this.props.hasPermissionToEditRecord(record) && (
             <Link to={`/iam/${record.id}/edit`}>
               {i18n('common.edit')}
             </Link>
@@ -95,7 +95,7 @@ class IamUsersTable extends Component {
     return (
       <TableWrapper>
         <Table
-          rowKey="id"
+          rowKey='id'
           loading={loading}
           columns={this.columns}
           dataSource={rows}
@@ -116,7 +116,7 @@ function select(state) {
     pagination: selectors.selectPagination(state),
     filter: selectors.selectFilter(state),
     selectedKeys: selectors.selectSelectedKeys(state),
-    hasPermissionToEdit: iamSelectors.selectPermissionToEdit(
+    hasPermissionToEditRecord: iamSelectors.selectPermissionToEditRecord(
       state,
     ),
   };

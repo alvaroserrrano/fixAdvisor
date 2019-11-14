@@ -15,6 +15,7 @@ import FormWrapper, {
   tailFormItemLayout,
 } from 'view/shared/styles/FormWrapper';
 import FormSchema from 'view/shared/form/formSchema';
+import authSelectors from 'modules/auth/authSelectors';
 
 const { fields } = model;
 
@@ -49,7 +50,7 @@ class IamEditForm extends Component {
   };
 
   renderForm() {
-    const { saveLoading } = this.props;
+    const { saveLoading, isManager } = this.props;
 
     return (
       <FormWrapper>
@@ -101,22 +102,24 @@ class IamEditForm extends Component {
                   max={fields.avatarsIam.max}
                 />
 
-                <SelectFormItem
-                  name={fields.roles.name}
-                  label={fields.roles.label}
-                  options={fields.roles.options}
-                  mode="multiple"
-                />
+                {isManager && (
+                  <SelectFormItem
+                    name={fields.roles.name}
+                    label={fields.roles.label}
+                    options={fields.roles.options}
+                    mode='multiple'
+                  />
+                )}
 
                 <Form.Item
-                  className="form-buttons"
+                  className='form-buttons'
                   {...tailFormItemLayout}
                 >
                   <Button
                     loading={saveLoading}
-                    type="primary"
-                    htmlType="submit"
-                    icon="save"
+                    type='primary'
+                    htmlType='submit'
+                    icon='save'
                   >
                     {i18n('common.save')}
                   </Button>
@@ -124,7 +127,7 @@ class IamEditForm extends Component {
                   <Button
                     disabled={saveLoading}
                     onClick={form.handleReset}
-                    icon="undo"
+                    icon='undo'
                   >
                     {i18n('common.reset')}
                   </Button>
@@ -157,6 +160,9 @@ function select(state) {
     findLoading: selectors.selectFindLoading(state),
     saveLoading: selectors.selectSaveLoading(state),
     user: selectors.selectUser(state),
+    isManager: authSelectors.selectCurrentUserIsManager(
+      state,
+    ),
   };
 }
 

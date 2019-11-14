@@ -1,12 +1,13 @@
-const BookingRepository = require('../database/repositories/bookingRepository');
-const ToolRepository = require('../database/repositories/toolRepository');
-const ValidationError = require('../errors/validationError');
-const AbstractRepository = require('../database/repositories/abstractRepository');
-const UserRoleChecker = require('./iam/userRoleChecker');
-const ForbiddenError = require('../errors/forbiddenError');
-const bookingStatus = require('../enumerators/bookingStatus');
+const BookingRepository = require('../../database/repositories/bookingRepository');
+const ToolRepository = require('../../database/repositories/toolRepository');
+const ValidationError = require('../../errors/validationError');
+const AbstractRepository = require('../../database/repositories/abstractRepository');
+const UserRoleChecker = require('../iam/userRoleChecker');
+const ForbiddenError = require('../../errors/forbiddenError');
+const bookingStatus = require('../../enumerators/bookingStatus');
 const moment = require('moment');
-const SettingsService = require('./settingsService');
+const SettingsService = require('../settingsService');
+const BookingFeeCalculator = require('./bookingFeeCalculator');
 
 module.exports = class BookingService {
   constructor({ currentUser, language }) {
@@ -18,6 +19,7 @@ module.exports = class BookingService {
 
   async create(data) {
     await this._validateCreate(data);
+    data.fee = await this.calculateFee(data);
 
     const transaction = await AbstractRepository.createTransaction();
 
@@ -58,9 +60,7 @@ module.exports = class BookingService {
   }
 
   async _validateToolAndOwnerMatch(data) {
-    const tool = await this.toolRepository.findById(
-      data.tool,
-    );
+    const tool = await this.toolRepository.findById(data.tool);
 
     if (tool.owner.id !== data.owner) {
       throw new ForbiddenError(this.language);
@@ -69,6 +69,7 @@ module.exports = class BookingService {
 
   async update(id, data) {
     await this._validateUpdate(id, data);
+    data.fee = await this.calculateFee(data);
 
     const transaction = await AbstractRepository.createTransaction();
 
@@ -120,11 +121,7 @@ module.exports = class BookingService {
     await this._validateToolAndOwnerMatch(data);
   }
 
-  async _validateUpdateForToolOwner(
-    id,
-    data,
-    existingData,
-  ) {
+  async _validateUpdateForToolOwner(id, data, existingData) {
     data.owner = this.currentUser.id;
     await this._validateIsSameOwner(id);
 
@@ -322,12 +319,24 @@ module.exports = class BookingService {
       idToExclude,
     );
 
-    const capacity = (
-      await SettingsService.findOrCreateDefault(
-        this.currentUser,
-      )
-    ).capacity;
+    const capacity = (await SettingsService.findOrCreateDefault(
+      this.currentUser,
+    )).capacity;
 
     return bookingsAtPeriod < capacity;
+  }
+
+  async calculateFee(data) {
+    const { arrival, departure } = data;
+
+    const dailyFee = (await SettingsService.findOrCreateDefault(
+      this.currentUser,
+    )).dailyFee;
+
+    return BookingFeeCalculator.calculate(
+      arrival,
+      departure,
+      dailyFee,
+    );
   }
 };

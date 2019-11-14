@@ -29,10 +29,10 @@ class IamRolesToolbar extends Component {
     const {
       selectedKeys,
       loading,
-      hasPermissionToEdit,
+      hasPermissionToRemove,
     } = this.props;
 
-    if (!hasPermissionToEdit) {
+    if (!hasPermissionToRemove) {
       return null;
     }
 
@@ -41,8 +41,8 @@ class IamRolesToolbar extends Component {
     const button = (
       <Button
         disabled={disabled}
-        type="primary"
-        icon="user-delete"
+        type='primary'
+        icon='user-delete'
         onClick={this.doRemoveAllSelected}
       >
         {i18n('common.remove')}
@@ -64,10 +64,10 @@ class IamRolesToolbar extends Component {
     const {
       selectedKeys,
       loading,
-      hasPermissionToEdit,
+      hasPermissionToChangeStatus,
     } = this.props;
 
-    if (!hasPermissionToEdit) {
+    if (!hasPermissionToChangeStatus) {
       return null;
     }
 
@@ -76,8 +76,8 @@ class IamRolesToolbar extends Component {
     const button = (
       <Button
         disabled={disabled}
-        type="primary"
-        icon="check"
+        type='primary'
+        icon='check'
         onClick={this.doEnableAllSelected}
       >
         {i18n('iam.enable')}
@@ -99,10 +99,10 @@ class IamRolesToolbar extends Component {
     const {
       selectedKeys,
       loading,
-      hasPermissionToEdit,
+      hasPermissionToChangeStatus,
     } = this.props;
 
-    if (!hasPermissionToEdit) {
+    if (!hasPermissionToChangeStatus) {
       return null;
     }
 
@@ -111,8 +111,8 @@ class IamRolesToolbar extends Component {
     const button = (
       <Button
         disabled={disabled}
-        type="primary"
-        icon="stop"
+        type='primary'
+        icon='stop'
         onClick={this.doDisableAllSelected}
       >
         {i18n('iam.disable')}
@@ -134,16 +134,16 @@ class IamRolesToolbar extends Component {
     return (
       <Toolbar>
         {this.props.hasPermissionToCreate && (
-          <Link to="/iam/new">
-            <Button type="primary" icon="user-add">
+          <Link to='/iam/new'>
+            <Button type='primary' icon='user-add'>
               {i18n('common.new')}
             </Button>
           </Link>
         )}
 
         {this.props.hasPermissionToImport && (
-          <Link to="/iam/importer">
-            <Button type="primary" icon="upload">
+          <Link to='/iam/importer'>
+            <Button type='primary' icon='upload'>
               {i18n('common.import')}
             </Button>
           </Link>
@@ -154,8 +154,8 @@ class IamRolesToolbar extends Component {
         {this.renderDisableButton()}
 
         {this.props.hasPermissionToAuditLogs && (
-          <Link to="/audit-logs?entityNames=user">
-            <Button icon="file-search">
+          <Link to='/audit-logs?entityNames=user'>
+            <Button icon='file-search'>
               {i18n('auditLog.menu')}
             </Button>
           </Link>
@@ -172,13 +172,16 @@ function select(state) {
     hasPermissionToAuditLogs: auditLogSelectors.selectPermissionToRead(
       state,
     ),
-    hasPermissionToEdit: iamSelectors.selectPermissionToEdit(
-      state,
-    ),
     hasPermissionToCreate: iamSelectors.selectPermissionToCreate(
       state,
     ),
     hasPermissionToImport: iamSelectors.selectPermissionToImport(
+      state,
+    ),
+    hasPermissionToChangeStatus: iamSelectors.selectPermissionToChangeStatus(
+      state,
+    ),
+    hasPermissionToRemove: iamSelectors.selectPermissionToRemove(
       state,
     ),
   };

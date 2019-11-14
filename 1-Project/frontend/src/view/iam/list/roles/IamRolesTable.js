@@ -78,9 +78,10 @@ class IamRolesTable extends Component {
         );
 
         return (
-          <div className="table-actions">
+          <div className='table-actions'>
             {view}
-            {this.props.hasPermissionToEdit && edit}
+            {this.props.hasPermissionToEditRecord(record) &&
+              edit}
           </div>
         );
       },
@@ -106,7 +107,7 @@ class IamRolesTable extends Component {
     return (
       <TableWrapper>
         <Table
-          rowKey="id"
+          rowKey='id'
           loading={loading}
           columns={this.columns}
           dataSource={rows}
@@ -127,7 +128,7 @@ function select(state) {
     pagination: selectors.selectPagination(state),
     filter: selectors.selectFilter(state),
     selectedKeys: selectors.selectSelectedKeys(state),
-    hasPermissionToEdit: iamSelectors.selectPermissionToEdit(
+    hasPermissionToEditRecord: iamSelectors.selectPermissionToEditRecord(
       state,
     ),
   };

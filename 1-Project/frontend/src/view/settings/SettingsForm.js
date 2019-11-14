@@ -14,6 +14,8 @@ import Spinner from 'view/shared/Spinner';
 import FormErrors from 'view/shared/form/formErrors';
 import ThemeRadioWrapper from 'view/settings/styles/ThemeRadioWrapper';
 import FormSchema from 'view/shared/form/formSchema';
+import InputFormItem from 'view/shared/form/items/InputFormItem';
+import InputNumberFormItem from 'view/shared/form/items/InputNumberFormItem';
 
 const { fields } = model;
 
@@ -87,10 +89,10 @@ class SettingsForm extends Component {
                           style={radioStyle}
                           value={theme.id}
                         >
-                          <div className="color-box">
-                            <div className="color-box-inner" />
+                          <div className='color-box'>
+                            <div className='color-box-inner' />
                           </div>
-                          <span className="color-text">
+                          <span className='color-text'>
                             {theme.label}
                           </span>
                         </Radio>
@@ -100,14 +102,14 @@ class SettingsForm extends Component {
                 </Form.Item>
 
                 <Form.Item
-                  className="form-buttons"
+                  className='form-buttons'
                   {...tailFormItemLayout}
                 >
                   <Button
                     loading={saveLoading}
-                    type="primary"
-                    htmlType="submit"
-                    icon="save"
+                    type='primary'
+                    htmlType='submit'
+                    icon='save'
                   >
                     {i18n('common.save')}
                   </Button>
@@ -115,7 +117,7 @@ class SettingsForm extends Component {
                   <Button
                     disabled={saveLoading}
                     onClick={form.handleReset}
-                    icon="undo"
+                    icon='undo'
                   >
                     {i18n('common.reset')}
                   </Button>

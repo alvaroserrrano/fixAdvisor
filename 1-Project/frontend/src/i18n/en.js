@@ -22,55 +22,49 @@ const en = {
   },
 
   app: {
-    title: 'Fix Advisor',
+    title: 'Tool Hotel',
   },
 
   entities: {
     tool: {
-      name: 'Tool',
-      label: 'Label',
-      menu: 'Tool',
+      name: 'tool',
+      label: 'Tools',
+      menu: 'Tools',
       exporterFileName: 'tool_export',
       list: {
-        menu: 'menu',
-        title: 'title',
+        menu: 'Tools',
+        title: 'Tools',
       },
       create: {
-        success: 'tool created successfully',
+        success: 'Tool saved successfully',
       },
       update: {
-        success: 'tool updated successfully',
+        success: 'Tool saved successfully',
       },
       destroy: {
-        success: 'tool deleted successfully',
+        success: 'Tool deleted successfully',
       },
       destroyAll: {
-        success: 'tool(s) deleted successfully',
+        success: 'Tool(s) deleted successfully',
       },
       edit: {
-        title: 'Edit tool',
+        title: 'Edit Tool',
       },
       fields: {
-        id: 'id',
+        id: 'Id',
         owner: 'Owner',
         name: 'Name',
         type: 'Type',
         size: 'Size',
-        bookings: 'bookings',
+        bookings: 'Bookings',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
       },
       enumerators: {
         type: {
-          mechanical: 'Mechanical Engineer',
-          IT: 'IT Support Technician',
-          plumber: 'Plumber',
-          gardener: 'Gardener',
-          cable: 'Cable specialist',
-          electrician: 'Electrician',
-          painter: 'Painter',
-          other: 'Other',
+          cat: 'Cat',
+          dog: 'Dog',
         },
         size: {
           small: 'Small',
@@ -79,13 +73,13 @@ const en = {
         },
       },
       new: {
-        title: 'New tool',
+        title: 'New Tool',
       },
       view: {
-        title: 'View  tool',
+        title: 'View Tool',
       },
       importer: {
-        title: 'Import tools',
+        title: 'Import Tools',
         fileName: 'tool_import_template',
         hint:
           'Files/Images columns must be the URLs of the files separated by space.',
@@ -114,11 +108,10 @@ const en = {
         success: 'Booking(s) deleted successfully',
       },
       edit: {
-        title: 'Edit booking',
+        title: 'Edit Booking',
       },
       fields: {
-        id: 'id',
-        manager: 'manager',
+        id: 'Id',
         owner: 'Owner',
         tool: 'Tool',
         arrivalRange: 'Arrival',
@@ -130,17 +123,18 @@ const en = {
         photos: 'Photos',
         status: 'Status',
         cancellationNotes: 'Cancellation Notes',
-        feeRange: 'Total fee',
-        fee: 'Total fee',
+        feeRange: 'Total Fee',
+        fee: 'Total Fee',
         receipt: 'Receipt',
         createdAt: 'Created at',
         updatedAt: 'Updated at',
         createdAtRange: 'Created at',
+        period: 'Period',
       },
       enumerators: {
         status: {
           booked: 'Booked',
-          progress: 'In progress',
+          progress: 'In Progress',
           cancelled: 'Cancelled',
           completed: 'Completed',
         },
@@ -152,10 +146,13 @@ const en = {
         title: 'View Booking',
       },
       importer: {
-        title: 'Import bookings',
+        title: 'Import Bookings',
         fileName: 'booking_import_template',
         hint:
           'Files/Images columns must be the URLs of the files separated by space.',
+      },
+      validation: {
+        periodPast: 'The period must be in the future',
       },
     },
   },
@@ -203,7 +200,7 @@ const en = {
       description: 'Employee access',
     },
     toolOwner: {
-      label: 'Tool owner',
+      label: 'Tool Owner',
       description: 'Tool owner access',
     },
   },
@@ -318,6 +315,8 @@ const en = {
     },
     fields: {
       theme: 'Theme',
+      dailyFee: 'Daily Fee',
+      capacity: 'Capacity',
     },
     colors: {
       default: 'Default',

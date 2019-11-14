@@ -5,6 +5,7 @@ const AbstractRepository = require('../database/repositories/abstractRepository'
 const UserRoleChecker = require('./iam/userRoleChecker');
 const ForbiddenError = require('../errors/forbiddenError');
 const bookingStatus = require('../enumerators/bookingStatus');
+const moment = require('moment');
 
 module.exports = class BookingService {
   constructor({ currentUser, language }) {
@@ -39,6 +40,8 @@ module.exports = class BookingService {
   }
 
   async _validateCreate(data) {
+    await this._validatePeriodFuture(data);
+
     if (UserRoleChecker.isToolOwner(this.currentUser)) {
       if (data.owner !== this.currentUser.id) {
         throw new ForbiddenError(this.language);
@@ -53,7 +56,9 @@ module.exports = class BookingService {
   }
 
   async _validateToolAndOwnerMatch(data) {
-    const tool = await this.toolRepository.findById(data.tool);
+    const tool = await this.toolRepository.findById(
+      data.tool,
+    );
 
     if (tool.owner.id !== data.owner) {
       throw new ForbiddenError(this.language);
@@ -89,6 +94,8 @@ module.exports = class BookingService {
   }
 
   async _validateUpdate(id, data) {
+    await this._validatePeriodFuture(data);
+
     const existingData = await this.findById(id);
 
     if (UserRoleChecker.isToolOwner(this.currentUser)) {
@@ -110,7 +117,11 @@ module.exports = class BookingService {
     await this._validateToolAndOwnerMatch(data);
   }
 
-  async _validateUpdateForToolOwner(id, data, existingData) {
+  async _validateUpdateForToolOwner(
+    id,
+    data,
+    existingData,
+  ) {
     data.owner = this.currentUser.id;
     await this._validateIsSameOwner(id);
 
@@ -253,5 +264,27 @@ module.exports = class BookingService {
     });
 
     return count > 0;
+  }
+
+  async _validatePeriodFuture(data) {
+    const { arrival, departure, status } = data;
+
+    if (status !== bookingStatus.BOOKED) {
+      return;
+    }
+
+    if (moment(arrival).isAfter(departure)) {
+      throw new ValidationError(
+        this.language,
+        'entities.booking.validation.arrivalAfterDeparture',
+      );
+    }
+
+    if (moment().isAfter(arrival)) {
+      throw new ValidationError(
+        this.language,
+        'entities.booking.validation.periodPast',
+      );
+    }
   }
 };

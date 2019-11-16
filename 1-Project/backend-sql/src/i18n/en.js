@@ -1,6 +1,6 @@
 const en = {
   app: {
-    title: 'Tool Hotel',
+    title: 'FixAdvisor.',
   },
 
   entities: {

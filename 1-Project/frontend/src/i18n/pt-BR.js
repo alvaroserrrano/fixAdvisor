@@ -22,65 +22,71 @@ const ptBR = {
   },
 
   app: {
-    title: '',
+    title: 'Tool Hotel',
   },
 
   entities: {
     tool: {
       name: 'tool',
-      label: '',
-      menu: '',
-      exporterFileName: 'tool_exportados',
+      label: 'Tools',
+      menu: 'Tools',
+      exporterFileName: 'tool_export',
       list: {
-        menu: '',
-        title: '',
+        menu: 'Tools',
+        title: 'Tools',
       },
       create: {
-        success: 'tool salvo com sucesso',
+        success: 'Tool salvo com sucesso',
       },
       update: {
-        success: 'tool salvo com sucesso',
+        success: 'Tool salvo com sucesso',
       },
       destroy: {
-        success: 'tool deletado com sucesso',
+        success: 'Tool deletado com sucesso',
       },
       destroyAll: {
-        success: 'tool(s) deletado com sucesso',
+        success: 'Tool(s) deletado com sucesso',
       },
       edit: {
-        title: 'Editar tool',
+        title: 'Editar Tool',
       },
       fields: {
-        id: '',
-        owner: '',
-        name: '',
-        type: '',
-        size: '',
-        bookings: '',
+        id: 'Id',
+        owner: 'Dono',
+        name: 'Nome',
+        type: 'Tipo',
+        size: 'Tamanho',
+        bookings: 'Reservas',
         createdAt: 'Criado em',
         updatedAt: 'Atualizado em',
         createdAtRange: 'Criado em',
       },
       enumerators: {
         type: {
-          cat: '',
-          dog: '',
+          mechanical: 'Mecânico',
+          IT: 'IT',
+          plumber: 'Canalizador',
+          gardener: 'Jardineiro',
+          cable: 'Técnico de cabo',
+          electrician: 'Electricista',
+          painter: 'Pintor',
+          other: 'Outro',
         },
         size: {
-          small: '',
-          medium: '',
-          large: '',
+          small: 'Pequeno',
+          medium: 'Médio',
+          large: 'Grande',
         },
       },
       new: {
-        title: 'Novo tool',
+        title: 'Novo Tool',
       },
       view: {
-        title: 'Visualizar tool',
+        title: 'Visualizar Tool',
       },
       importer: {
-        title: 'Importar tools',
-        fileName: 'tool_template_importacao',
+        title: 'Importar Tools',
+        fileName: 'tool_import_template',
         hint:
           'Arquivos/Imagens devem ser as URLs dos arquivos, separados por espaço. Relacionamentos devem ser os IDs separados por espaço.',
       },
@@ -88,67 +94,73 @@ const ptBR = {
 
     booking: {
       name: 'booking',
-      label: '',
-      menu: '',
-      exporterFileName: 'booking_exportados',
+      label: 'Reservas',
+      menu: 'Reservas',
+      exporterFileName: 'booking_export',
       list: {
-        menu: '',
-        title: '',
+        menu: 'Reservas',
+        title: 'Reservas',
       },
       create: {
-        success: 'booking salvo com sucesso',
+        success: 'Reserva salvo com sucesso',
       },
       update: {
-        success: 'booking salvo com sucesso',
+        success: 'Reserva salvo com sucesso',
       },
       destroy: {
-        success: 'booking deletado com sucesso',
+        success: 'Reserva deletado com sucesso',
       },
       destroyAll: {
-        success: 'booking(s) deletado com sucesso',
+        success: 'Reserva(s) deletado com sucesso',
       },
       edit: {
-        title: 'Editar booking',
+        title: 'Editar Reserva',
       },
       fields: {
-        id: '',
-        owner: '',
-        tool: '',
-        arrivalRange: '',
-        arrival: '',
-        departureRange: '',
-        departure: '',
-        clientNotes: '',
-        employeeNotes: '',
-        photos: '',
-        status: '',
-        cancellationNotes: '',
-        feeRange: '',
-        fee: '',
-        receipt: '',
+        id: 'Id',
+        owner: 'Dono',
+        tool: 'Tool',
+        arrivalRange: 'Chegada',
+        arrival: 'Chegada',
+        departureRange: 'Saída',
+        departure: 'Saída',
+        clientNotes: 'Observações',
+        employeeNotes: 'Observações do Funcionário',
+        photos: 'Fotos',
+        status: 'Status',
+        cancellationNotes: 'Notas de Cancelamento',
+        feeRange: 'Valor Total',
+        fee: 'Valor Total',
+        receipt: 'Recibo',
         createdAt: 'Criado em',
         updatedAt: 'Atualizado em',
         createdAtRange: 'Criado em',
+        period: 'Período',
       },
       enumerators: {
         status: {
-          booked: '',
-          progress: '',
-          cancelled: '',
-          completed: '',
+          booked: 'Reservado',
+          progress: 'Em progresso',
+          cancelled: 'Cancelado',
+          completed: 'Completado',
         },
       },
       new: {
-        title: 'Novo booking',
+        title: 'Nova Reserva',
       },
       view: {
-        title: 'Visualizar booking',
+        title: 'Visualizar Reserva',
       },
       importer: {
-        title: 'Importar bookings',
-        fileName: 'booking_template_importacao',
+        title: 'Importar Reservas',
+        fileName: 'reserva_import_template',
         hint:
           'Arquivos/Imagens devem ser as URLs dos arquivos, separados por espaço. Relacionamentos devem ser os IDs separados por espaço.',
+      },
+      validation: {
+        periodPast: 'O período deve estar no futuro',
+        periodFull:
+          'Desculpe, o Tool Hotel está cheio neste período',
       },
     },
   },
@@ -185,58 +197,23 @@ const ptBR = {
   },
 
   roles: {
-    owner: {
-      label: 'Proprietário',
-      description: 'Acesso completo a todos os recursos',
+    manager: {
+      label: 'Gerente',
+      description: 'Acesso completo',
     },
-    editor: {
-      label: 'Editor',
-      description: 'Acesso para edição a todos os recursos',
+    employee: {
+      label: 'Funcionário',
+      description: 'Acesso de Funcionário',
     },
-    viewer: {
-      label: 'Visualizador',
-      description:
-        'Acesso de visualização a todos os recursos',
-    },
-    auditLogViewer: {
-      label: 'Visualizador de Registros de Autoria',
-      description:
-        'Acesso de visualização dos registros de autoria',
-    },
-    iamSecurityReviewer: {
-      label: 'Revisor de segurança',
-      description: `Acesso total para gerenciar as funções do usuário`,
-    },
-    entityEditor: {
-      label: 'Editor de Entidades',
-      description: 'Acesso de edição a todas as entidades',
-    },
-    entityViewer: {
-      label: 'Visualizador de Entidades',
-      description:
-        'Acesso de visualização a todas as entidades',
-    },
-    toolEditor: {
-      label: 'Editor de tool',
-      description: 'Acesso de edição aos tool',
-    },
-    toolViewer: {
-      label: 'Visualizador de tool',
-      description: 'Acesso de visualização aos tool',
-    },
-    bookingEditor: {
-      label: 'Editor de booking',
-      description: 'Acesso de edição aos booking',
-    },
-    bookingViewer: {
-      label: 'Visualizador de booking',
-      description: 'Acesso de visualização aos booking',
+    toolOwner: {
+      label: 'Dono do Tool',
+      description: 'Acesso de dono to Tool',
     },
   },
 
   iam: {
-    title: 'Gerenciamento de usuários e permissões',
-    menu: 'IAM',
+    title: 'Usuários',
+    menu: 'Usuários',
     disable: 'Desabilitar',
     disabled: 'Desabilitado',
     enabled: 'Habilitado',
@@ -345,6 +322,8 @@ const ptBR = {
     },
     fields: {
       theme: 'Tema',
+      dailyFee: 'Valor da Diária',
+      capacity: 'Capacidade',
     },
     colors: {
       default: 'Padrão',
@@ -363,34 +342,6 @@ const ptBR = {
   },
   home: {
     menu: 'Inicial',
-    message: `Esta página usa dados falsos apenas para fins de demonstração. Você pode editá-la em frontend/view/home/HomePage.js.`,
-    charts: {
-      day: 'Dia',
-      red: 'Vermelho',
-      green: 'Verde',
-      yellow: 'Amarelho',
-      grey: 'Cinza',
-      blue: 'Azul',
-      sales: 'Vendas',
-      visitor: 'Visitantes',
-      months: {
-        1: 'Janeiro',
-        2: 'Fevereiro',
-        3: 'Março',
-        4: 'Abril',
-        5: 'Maio',
-        6: 'Junho',
-        7: 'Julho',
-      },
-      eating: 'Comendo',
-      drinking: 'Bebendo',
-      sleeping: 'Dormindo',
-      designing: 'Projetando',
-      coding: 'Codificando',
-      cycling: 'Pedalando',
-      running: 'Correndo',
-      customer: 'Cliente',
-    },
   },
   errors: {
     backToHome: 'Voltar a página inicial',

@@ -22,7 +22,7 @@ const en = {
   },
 
   app: {
-    title: 'Tool Hotel',
+    title: 'FixAdvisor',
   },
 
   entities: {
@@ -63,8 +63,14 @@ const en = {
       },
       enumerators: {
         type: {
-          cat: 'Cat',
-          dog: 'Dog',
+          mechanical: 'Mechanical',
+          IT: 'IT Support Technician / Web Developer',
+          plumber: 'Plumber',
+          gardener: 'Gardener',
+          cable: 'Cable technician',
+          electrician: 'Electrician',
+          painter: 'Painter',
+          other: 'Other',
         },
         size: {
           small: 'Small',

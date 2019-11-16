@@ -1,9 +1,11 @@
 const en = require('./en');
-const ptBR = require('./pt-BR');
 const _get = require('lodash/get');
+const spSP = require('./sp-SP');
+const ptBR = require('./sp-SP');
 
 const languages = {
   en: en,
+  'sp-SP': spSP,
   'pt-BR': ptBR,
 };
 

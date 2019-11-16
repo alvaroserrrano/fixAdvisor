@@ -1,11 +1,10 @@
 import React from 'react';
 import _get from 'lodash/get';
 import moment from 'moment';
-import 'moment/locale/pt-br';
-import antd_pt_BR from 'antd/lib/locale-provider/pt_BR';
 import { setLocale as setYupLocale } from 'yup';
-import ptBR from 'i18n/pt-BR';
 import en from 'i18n/en';
+import sp from 'i18n/sp-SP';
+import pt from 'i18n/pt-BR';
 
 let currentLanguageCode = null;
 
@@ -19,14 +18,23 @@ const languages = {
     currency: 'USD',
     currencyLocale: 'en-US',
   },
-  'pt-BR': {
-    id: 'pt-BR',
+  sp: {
+    id: 'sp',
+    label: 'sp',
+    flag: '/images/flags/24/Spain.png',
+    dictionary: sp,
+    antd: undefined,
+    currency: 'EU',
+    currencyLocale: 'EU',
+  },
+  pt: {
+    id: 'pt',
     label: 'pt-BR',
     flag: '/images/flags/24/Brazil.png',
-    dictionary: ptBR,
-    antd: antd_pt_BR,
-    currency: 'BRL',
-    currencyLocale: 'pt-BR',
+    dictionary: pt,
+    antd: undefined,
+    currency: 'EU',
+    currencyLocale: 'EU',
   },
 };
 

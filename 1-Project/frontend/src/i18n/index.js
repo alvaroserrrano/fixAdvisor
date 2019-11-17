@@ -5,7 +5,10 @@ import { setLocale as setYupLocale } from 'yup';
 import en from 'i18n/en';
 import sp from 'i18n/sp-SP';
 import pt from 'i18n/pt-BR';
-
+import antd_pt_BR from 'antd/lib/locale-provider/pt_BR';
+import antd_pt_SP from 'antd/lib/locale-provider/es_ES';
+import 'moment/locale/pt-br';
+import 'moment/locale/es';
 let currentLanguageCode = null;
 
 const languages = {
@@ -23,7 +26,7 @@ const languages = {
     label: 'sp',
     flag: '/images/flags/24/Spain.png',
     dictionary: sp,
-    antd: undefined,
+    antd: antd_pt_SP,
     currency: 'EU',
     currencyLocale: 'EU',
   },
@@ -32,7 +35,7 @@ const languages = {
     label: 'pt-BR',
     flag: '/images/flags/24/Brazil.png',
     dictionary: pt,
-    antd: undefined,
+    antd: antd_pt_BR,
     currency: 'EU',
     currencyLocale: 'EU',
   },
